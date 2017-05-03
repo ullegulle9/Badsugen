@@ -15,6 +15,7 @@ var map, infoWindow;
 
 
 
+
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: user,
@@ -113,28 +114,29 @@ function callback(results, status) {
 						adress: response.destinationAddresses[0],
 						distance: response.rows[0].elements[0].distance.value
 					}
+
 					listBaths(obj);
-					
+
 					// React: setState componentDidMount
-					console.log('length:', distanceArray.length);
+					//console.log('length:', distanceArray.length);
 				}
 			})
 			var place = results[i];
 			createMarker(results[i]);
 		}
 		//console.log(distanceArray);
-		
-		
-		//listNearestBaths(distanceArray);
+
+
+
 	}
-/*	console.log('distancearray', typeof(distanceArray), distanceArray, distanceArray['0'], distanceArray.length);
-	console.log( JSON.stringify(distanceArray) );
-	for(let x in distanceArray) {
-		console.log('x:', x);
-	}
-	for (let i = 0; i<distanceArray.length; i++){
-			console.log('körs');
-		}*/
+	/*	console.log('distancearray', typeof(distanceArray), distanceArray, distanceArray['0'], distanceArray.length);
+		console.log( JSON.stringify(distanceArray) );
+		for(let x in distanceArray) {
+			console.log('x:', x);
+		}
+		for (let i = 0; i<distanceArray.length; i++){
+				console.log('körs');
+			}*/
 }
 
 function createMarker(place) {
@@ -155,35 +157,55 @@ function createMarker(place) {
 let table = document.getElementById('tabellBadplats');
 table.style.display = 'none';
 
-function listBaths(obj){
+function listBaths(obj) {
+	distanceArray.push(obj);
+	/*
+	
 	table.style.display = 'block';
 	let row = document.createElement('tr');
-	let html = `<td>${obj.name}</td><td>${obj.adress}</td><td>${obj.distance}m</td>`
+	let html = `<td>${obj.name}</td>
+				<td>${obj.adress}</td>					
+				<td>${roundDistance}km</td>`
 	row.innerHTML = html;
 	document.getElementById('tBody').appendChild(row);
+	*/
+	listNearestBaths(distanceArray);
 }
 
 function listNearestBaths(list) {
+	table.style.display = 'block';
 	//console.log(list);
 	let sortedList = list.sort(function (a, b) {
-			return a.distance - b.distance;
-		});
+		return a.distance - b.distance;
+	});
+	let tBody = document.getElementById('tBody');
+	tBody.innerHTML = '';
 	let row = document.createElement('tr');
 	let html = `<th>Badplats</th>
-        <th>Adress</th> 
-        <th>Avstånd</th>`;
+        		<th>Adress</th> 
+        		<th>Avstånd</th>`;
 	row.innerHTML = html;
-	document.getElementById('tBody').appendChild(row);
+	tBody.appendChild(row);
 	console.log(sortedList);
-	for (i = 0; i < list.length; i++) {
-		console.log('körs');
-		/*
-		let li = list[i];
+	for (i = 0; i < 6; i++) {
+		
+		let li = sortedList[i];
+		
+		let distance = li.distance / 1000;
+		let roundDistance = distance.toFixed(2);
+		let formAdress = deleteSwe(li.adress);
 		let row = document.createElement('tr');
-		let html = `<td>${li.name}</td><td>${li.adress}</td><td>${li.distance}</td>`;
+		let html = `<td>${li.name}</td><td>${formAdress}</td><td>${roundDistance}km</td>`;
 		row.innerHTML = html;
-		document.getElementById('tBody').appendChild('row');*/
+		document.getElementById('tBody').appendChild(row);
 	};
-	
-	
+}
+
+function deleteSwe(string){
+  let deleteAmount = string.length - 10;
+  
+  //console.log(string.length);
+  let endPos = string.length - 9;
+  let newString = string.substring(0, endPos);
+	return newString;
 }
