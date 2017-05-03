@@ -91,6 +91,7 @@ function callback(results, status) {
 	//console.log(results);
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
 		for (var i = 0; i < results.length; i++) {
+			let id = results[i].id;
 			let bName = results[i].name;
 			let startDestination = user;
 			let endDestination = {
@@ -112,7 +113,8 @@ function callback(results, status) {
 					let obj = {
 						name: bName,
 						adress: response.destinationAddresses[0],
-						distance: response.rows[0].elements[0].distance.value
+						distance: response.rows[0].elements[0].distance.value,
+						id: id
 					}
 
 					listBaths(obj);
@@ -140,6 +142,7 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
+	console.log(place);
 	var placeLoc = place.geometry.location;
 	var marker = new google.maps.Marker({
 		map: map,
@@ -158,23 +161,26 @@ let table = document.getElementById('tabellBadplats');
 table.style.display = 'none';
 
 function listBaths(obj) {
-	distanceArray.push(obj);
-	/*
+	//setTimeout(function, milliseconds)
 	
-	table.style.display = 'block';
-	let row = document.createElement('tr');
-	let html = `<td>${obj.name}</td>
-				<td>${obj.adress}</td>					
-				<td>${roundDistance}km</td>`
-	row.innerHTML = html;
-	document.getElementById('tBody').appendChild(row);
-	*/
+		distanceArray.push(obj);
+	
+		let distance = obj.distance / 1000;
+		let roundDistance = distance.toFixed(2);
+		table.style.display = 'block';
+		let row = document.createElement('tr');
+		let html = `<td>${obj.name}</td>
+					<td>${obj.adress}</td>					
+					<td>${roundDistance}km</td>`
+		row.innerHTML = html;
+		document.getElementById('tBody').appendChild(row);
+	
 	listNearestBaths(distanceArray);
 }
 
 function listNearestBaths(list) {
 	table.style.display = 'block';
-	//console.log(list);
+	
 	let sortedList = list.sort(function (a, b) {
 		return a.distance - b.distance;
 	});
@@ -186,26 +192,33 @@ function listNearestBaths(list) {
         		<th>Avstånd</th>`;
 	row.innerHTML = html;
 	tBody.appendChild(row);
-	console.log(sortedList);
-	for (i = 0; i < 6; i++) {
-		
+	//console.log(sortedList);
+	for (i = 0; i < sortedList.length; i++) {
+		if (i >= 5){
+			break;
+		}
 		let li = sortedList[i];
-		
-		let distance = li.distance / 1000;
-		let roundDistance = distance.toFixed(2);
-		let formAdress = deleteSwe(li.adress);
-		let row = document.createElement('tr');
-		let html = `<td>${li.name}</td><td>${formAdress}</td><td>${roundDistance}km</td>`;
-		row.innerHTML = html;
-		document.getElementById('tBody').appendChild(row);
+		//console.log('Loopnr: ',i, 'dist:', li.distance);
+		if (sortedList[i] !== undefined) {
+			
+
+			let distance = li.distance / 1000;
+			let roundDistance = distance.toFixed(2);
+			let formAdress = deleteSwe(li.adress);
+			let row = document.createElement('tr');
+			let html = `<td>${li.name}</td><td>${formAdress}</td><td>${roundDistance}km</td>`;
+			row.innerHTML = html;
+			document.getElementById('tBody').appendChild(row);
+		}
+
 	};
 }
 
-function deleteSwe(string){
-  let deleteAmount = string.length - 10;
-  
-  //console.log(string.length);
-  let endPos = string.length - 9;
-  let newString = string.substring(0, endPos);
+function deleteSwe(string) {
+	let deleteAmount = string.length - 10;
+
+	//console.log(string.length);
+	let endPos = string.length - 9;
+	let newString = string.substring(0, endPos);
 	return newString;
 }
