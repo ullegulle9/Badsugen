@@ -1,0 +1,163 @@
+div {
+	border-style: none
+}
+
+* {
+	outline: none;
+}
+
+body {
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	color: black;
+	background-image: url("https://i0.wp.com/blogg.kaprifolblogg.se/wp-content/uploads/2014/07/Rinkenas-4.jpg");
+	background-color: #cccccc;
+}
+
+h1 {
+	font-family: 'Pacifico', cursive;
+	font-size: 40px;
+}
+
+h3 {
+	text-align: center !important;
+}
+
+button {
+	background-color: white;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 5px;
+}
+
+
+/*
+  #map {
+    width: 90%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;    
+    }
+
+  #badplatsPage {
+    width: 90%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+      border-color: white;
+    }
+
+
+*/
+
+#map {
+	height: 400px;
+	width: 80%;
+	margin: auto;
+}
+
+#mapSection {
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;  
+	background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px; 
+	margin: auto;
+	height: 500px;
+	display: flex;
+	justify-content: center;
+    }
+
+#badplatsInfo {
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
+
+#badplatsImg {
+	width: 90%;
+	border-radius: 5px;
+	margin: auto;
+}
+
+#locationInfo {}
+
+#locationIcon {
+	height: 25px;
+}
+
+span {
+	padding: 4px;
+}
+
+#rateName {
+	padding: 0;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+#weatherIcon {
+	height: 25px;
+}
+
+#starsPart {
+	margin: auto;
+	width: 170px;
+}
+
+#ratingPart {
+	margin: auto;
+	max-width: 500px;
+}
+
+#ratedPart {
+	margin: auto;
+	max-width: 500px;
+	text-align: left;
+	padding-bottom: 25px;
+}
+
+#starsPart2 {
+	margin-top: 10px;
+	margin: auto;
+	width: 120px;
+}
+
+#profilePic {
+	width: 80px;
+}
+
+input {
+	width: 220px;
+	padding: 20px;
+	margin: 5px;
+	border-radius: 5px;
+	background-color: white;
+}
+
+#tableForm {
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+#tabellBadplats {
+	text-align: left;
+	background-color: rgba(255, 255, 255, 0.5);
+	padding: 15px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	border-radius: 5px;
+	margin: auto;
+	width: 90%;
+}
+
+@media (min-width: 768px) {
+	#mapSection {
+		max-width: 700px;
+	}
+	#badplatsPage {
+		max-width: 700px;
+	}
+	#tabellBadplats {
+		max-width: 700px;
+	}
+}
