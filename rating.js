@@ -35,7 +35,7 @@ class FormComponent extends React.Component {
    })
  }
  handleSubmit(){
-    fb.ref('comment').push().set({rating: this.state.rating, comment: this.state.comment});
+    fb.ref('comment').push({rating: this.state.rating, comment: this.state.comment});
     // var self = this;
     // fb.ref('comment/').once('value')
     // .then(function(snapshot){
@@ -47,10 +47,10 @@ class FormComponent extends React.Component {
     //   })
     // });
  }
-  onStarClick(nextValue, prevValue, name) {
-    debugger
-    this.setState({rating: nextValue});
-  }
+  // onStarClick(nextValue, prevValue, name) {
+  //
+  //   this.setState({rating: nextValue});
+  // }
 
   render() {
     const { rating } = this.state;
