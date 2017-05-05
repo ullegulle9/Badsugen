@@ -13,8 +13,12 @@ var userMarker;
 
 var map, infoWindow;
 
-
-
+var pressedID;
+/*
+window.onload = function(){
+	firebase.database().ref('pressed/').remove();
+}
+*/
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -53,10 +57,10 @@ function initMap() {
 				map: map
 			});
 			google.maps.event.addListener(userMarker, 'click', function () {
+				
 				infoWindow.setContent('<strong>' + userName.name + '</strong>')
-
-
 				infoWindow.open(map, this);
+				
 			});
 			map.setCenter(user);
 		}, function () {
@@ -88,9 +92,13 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function callback(results, status) {
-	//console.log(results);
+	
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
+		//console.log(results);
 		for (var i = 0; i < results.length; i++) {
+			let lat = results[i].geometry.location.lat();
+			let lng = results[i].geometry.location.lng();
+			//console.log(lng);
 			let id = results[i].id;
 			let bName = results[i].name;
 			let startDestination = user;
@@ -114,9 +122,11 @@ function callback(results, status) {
 						name: bName,
 						adress: response.destinationAddresses[0],
 						distance: response.rows[0].elements[0].distance.value,
-						id: id
+						id: id,
+						lat: lat,
+						lng: lng
 					}
-
+					
 					listBaths(obj);
 
 					// React: setState componentDidMount
@@ -142,7 +152,7 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-	console.log(place);
+	//console.log(place);
 	var placeLoc = place.geometry.location;
 	var marker = new google.maps.Marker({
 		map: map,
@@ -150,9 +160,21 @@ function createMarker(place) {
 	});
 
 	google.maps.event.addListener(marker, 'click', function () {
+		console.log(place);
+		let obj = {
+			id: place.id,
+			name: place.name
+		};
+		
+		
+		firebase.database().ref('badplatser/' + obj.id + '/pressed').set(obj);
+		pressedID = obj.id;
+		console.log(pressedID);
+		document.getElementById('mapRoot').style.display = 'none';
+		/*
 		infoWindow.setContent('<strong>' + place.name + '</strong>' + '<br>' + place.vicinity + '<br>Betyg: ' + place.rating);
-
-		infoWindow.open(map, this);
+		
+		infoWindow.open(map, this);*/
 	});
 
 }
@@ -174,7 +196,7 @@ function listBaths(obj) {
 					<td>${roundDistance}km</td>`
 		row.innerHTML = html;
 		document.getElementById('tBody').appendChild(row);
-	
+	firebase.database().ref('badplatser/' + obj.id).set(obj);
 	listNearestBaths(distanceArray);
 }
 

@@ -17,12 +17,12 @@
 
 
 	<div id="infoSite">
-	
+
 	</div>
 	<!-- Make visible when logged in -->
 	<div id="mapRoot">
 		<div id="mapSection">
-			<div id="map">hej</div>
+			<div id="map"></div>
 		</div>
 
 		<div id="tableForm">
@@ -39,19 +39,36 @@
 		</div>
 	</div>
 	<!-- mapRoot End -->
-	
-	
-	<!-- Test-React -->
-	<div id="react"></div>
-	
 
+
+	<!-- Test-React -->
+	<div id="badplatsPage"></div>
+
+	
 	<script src="badsugengmaptest.js">
+
+
 	</script>
 	<script type="text/babel" src="badsugenReact.js">
 	</script>
 	
 
+
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPkVBkR0Vr7Sh7q44KRXRBM3I0lMgjwuY&libraries=places&callback=initMap" async defer></script>
+	<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyBNlNjo-j1rjCh-ovdMee8e0BhSHhFjVXA",
+			authDomain: "feu16mvt16.firebaseapp.com",
+			databaseURL: "https://feu16mvt16.firebaseio.com",
+			projectId: "feu16mvt16",
+			storageBucket: "feu16mvt16.appspot.com",
+			messagingSenderId: "619640994653"
+		};
+		firebase.initializeApp(config);
+
+	</script>
 </body>
 
 </html>
