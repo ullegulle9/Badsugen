@@ -1,3 +1,4 @@
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -123,4 +124,9 @@ class Accuweather extends React.Component {
 ReactDOM.render( 
 	<App />,
 	document.getElementById('badplatsPage')
+
+ReactDOM.render(
+	<p>React</p>,
+	document.getElementById('react')
+
 );

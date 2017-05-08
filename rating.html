@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="badsugengmaptest.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+	<script src="https://unpkg.com/react@latest/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+	<script  charset="utf-8" src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<link href="bootstrap-rating-master/bootstrap-rating.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="bootstrap-rating-master/bootstrap-rating.js"></script>
+  <link rel="stylesheet" type="text/css" href="rating.css">
+	<!-- <link rel="stylesheet" href="node_modules/react-star-rating/dist/css/react-star-rating.min.css"> -->
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"> -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script> -->
+	<!-- <script src="bootstrap-rating.min.js"></script> -->
+
+	<script type="text/babel" src="./rating.js"></script>
+
+</head>
+
+<body>
+	<header>
+		<h1>Badsugen.se</h1>
+	</header>
+  <div id="infoSite">
+    <div id="mapRoot">
+      <div id="mapSection">
+        <img src="http://www.bjurfors.se/globalassets/omradesbilder/vastra-gotaland/goteborg/bilder-160524/bjorkekarr_185229-41_web.jpg" id="map" alt="">
+      </div>
+      <div id="weatherandRating"></div>
+      <div id="ratingPart">
+
+      </div>
+
+
+			<!-- <input  type="hidden" class="rating rating-gly" /> -->
+
+
+			<script type="text/babel">
+			ReactDOM.render(
+			  <div>
+				<Weather />
+			  <FormComponent />
+			  </div>,
+			  document.getElementById('weatherandRating')
+			);
+			</script>
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+  <script>
+  	  // Initialize Firebase
+  	  var config = {
+  	    apiKey: "AIzaSyBNlNjo-j1rjCh-ovdMee8e0BhSHhFjVXA",
+  	    authDomain: "feu16mvt16.firebaseapp.com",
+  	    databaseURL: "https://feu16mvt16.firebaseio.com",
+  	    projectId: "feu16mvt16",
+  	    storageBucket: "feu16mvt16.appspot.com",
+  	    messagingSenderId: "619640994653"
+  	  };
+  	  firebase.initializeApp(config);
+
+
+  	</script>
+
+
+
+</body>
