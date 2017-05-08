@@ -157,9 +157,23 @@ class FormComponent extends React.Component {
          dataId = data[o].id
        }
      }
-     fb.ref(`badplatser/${dataId}/rateComment/`).set({rating: this.state.rating, comment: this.state.comment});
+	   let time = new Date().toString();
+     fb.ref(`badplatser/${dataId}/rateComment/${time}`).set({rating: this.state.rating, comment: this.state.comment});
    }.bind(this))
  }
+	componentDidMount(){
+		let fb = firebase.database();
+		fb.ref('badplatser/').on('value', function (snapshot) {
+     	let data = snapshot.val();
+			for(let o in data){
+       if(data[o].pressed !== undefined){
+         // console.log(this.state.rating)
+         console.log(data[o].rateComment);
+		   console.log(data[o]);
+       }
+     }
+	});
+	}
  render() {
    // const { rating } = this.state;
    return (

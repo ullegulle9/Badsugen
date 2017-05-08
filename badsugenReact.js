@@ -1,4 +1,5 @@
 
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -23,13 +24,14 @@ class App extends React.Component {
 		firebase.database().ref('badplatser/').on('value', function (snapshot) {
 			
 			let allData = snapshot.val();
+			let list = [];
 			//console.log(allData);
 			for (let obj in allData) {
-				
+				list.push(allData[obj]);
 				
 				if (allData[obj].pressed !== undefined){ // Kontrollerar vilket objekt som klickats på
 					let object = allData[obj];
-					console.log(object.lat, object.lng);
+					//console.log(object.lat, object.lng);
 					let distanceKm = object.distance/1000;
 					let distanceRound = distanceKm.toFixed(1);
 					this.setState({
@@ -46,7 +48,7 @@ class App extends React.Component {
 					this.getAccumulateKey();
 				}
 			}
-			
+			//console.log(this.state.distanceArray);
 		}.bind(this));
 		
 	}
@@ -92,7 +94,7 @@ class App extends React.Component {
 	
 	render() {
 		//this.componentDidMount();
-		if (this.state.hasBeenPressed) {
+		 
 			return <div id="badplatsInfo"> 
 				<h2>{this.state.name}</h2> 
 				<p> {this.state.adress}.<br></br>
@@ -101,15 +103,49 @@ class App extends React.Component {
 				<Accuweather weatherText={this.state.weatherText}
 					temperature={this.state.temperature} />
 			</div>
+		 
+	}
+}
+/*
+class ListNearestBaths extends React.Component{
+	render() {
+		let sortedList = this.props.list.sort(function (a, b) {
+		return a.distance - b.distance;
+	});
+		let closest5 = [];
+	for (let i = 0; i < sortedList.length; i++){
+		console.log(sortedList[i]);
+	}
+	let elementList = sortedList.map(el => {
+		return <tr>
+			<td>{el.name}</td>
+			<td>{el.adress}</td>
+			<td>{el.distance}</td>
+			</tr>
+	});
+		//console.log('this.props.list',this.props.list.length);
+		if(this.props.list.length > 0){
+			return <div id="tableForm">
+			<h2> Badplatser närmast dig:</h2>
+			<table id="tabellBadplats">
+				<tbody id="tBody">
+					<tr>
+						<th>Badplats</th>
+						<th>Adress</th>
+						<th>Avstånd</th>
+					</tr>
+					{elementList}
+				</tbody>
+			</table>
+		</div>
 		} else {
-			return <div></div>
+			return <span></span>
 		}
+		
 	}
 }
 
-class LocationPhoto extends React.Component{
-	
-}
+*/
 
 class Accuweather extends React.Component {
         render(){
@@ -123,7 +159,7 @@ class Accuweather extends React.Component {
 
 ReactDOM.render( 
 	<div>
-	<App />
+	<App distanceArray={distanceArray} />
 	<Weather />
 		<FormComponent /></div>,
 	document.getElementById('badplatsPage')

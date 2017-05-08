@@ -12,13 +12,15 @@ let userName = {
 var userMarker;
 
 var map, infoWindow;
-
+var hasBeenPressed = true;
 var pressedID;
 /*
 window.onload = function(){
 	firebase.database().ref('pressed/').remove();
 }
 */
+
+document.getElementById('badplatsPage').style.display = 'none';
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -80,7 +82,7 @@ function initMap() {
 
 
 
-let distanceArray = [];
+var distanceArray = [];
 
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -166,11 +168,12 @@ function createMarker(place) {
 			name: place.name
 		};
 		
-		
+		hasBeenPressed = true;
 		firebase.database().ref('badplatser/' + obj.id + '/pressed').set(obj);
 		pressedID = obj.id;
 		console.log(pressedID);
 		document.getElementById('mapRoot').style.display = 'none';
+		document.getElementById('badplatsPage').style.display = 'block';
 		/*
 		infoWindow.setContent('<strong>' + place.name + '</strong>' + '<br>' + place.vicinity + '<br>Betyg: ' + place.rating);
 		
@@ -188,7 +191,7 @@ function listBaths(obj) {
 	//setTimeout(function, milliseconds)
 	
 		distanceArray.push(obj);
-	
+			/*
 		let distance = obj.distance / 1000;
 		let roundDistance = distance.toFixed(2);
 		table.style.display = 'block';
@@ -197,12 +200,13 @@ function listBaths(obj) {
 					<td>${obj.adress}</td>					
 					<td>${roundDistance}km</td>`
 		row.innerHTML = html;
-		document.getElementById('tBody').appendChild(row);
+		document.getElementById('tBody').appendChild(row);*/
 	firebase.database().ref('badplatser/' + obj.id).set(obj);
 	listNearestBaths(distanceArray);
 }
 
 function listNearestBaths(list) {
+	//console.log(list);
 	table.style.display = 'block';
 	
 	let sortedList = list.sort(function (a, b) {
