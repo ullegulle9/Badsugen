@@ -122,11 +122,9 @@ class Accuweather extends React.Component {
 }
 
 ReactDOM.render( 
-	<App />,
+	<div>
+	<App />
+	<Weather />
+		<FormComponent /></div>,
 	document.getElementById('badplatsPage')
-
-ReactDOM.render(
-	<p>React</p>,
-	document.getElementById('react')
-
 );

@@ -164,19 +164,26 @@ class FormComponent extends React.Component {
    // const { rating } = this.state;
    return (
      <div>
+		 <div>
+			 <h3>Ge ditt betyg på den har badplatsen!</h3>
+			 <span style={{color:this.state.color1}} onClick={this.handleRating1} className="fa fa-star" aria-hidden="true"></span>
+			 <span style={{color:this.state.color2}} onClick={this.handleRating2} className="fa fa-star" aria-hidden="true"></span>
+			 <span style={{color:this.state.color3}} onClick={this.handleRating3} className="fa fa-star" aria-hidden="true"></span>
+			 <span style={{color:this.state.color4}} onClick={this.handleRating4} className="fa fa-star" aria-hidden="true"></span>
+			 <span style={{color:this.state.color5}} onClick={this.handleRating5} className="fa fa-star" aria-hidden="true"></span>
+		 </div>
      <div>
-     <h3 className="text">Ge ditt betyg på den har badplatsen!</h3>
-     <span style={{color:this.state.color1}} onClick={this.handleRating1} className="fa fa-star" aria-hidden="true"></span>
-     <span style={{color:this.state.color2}} onClick={this.handleRating2} className="fa fa-star" aria-hidden="true"></span>
-     <span style={{color:this.state.color3}} onClick={this.handleRating3} className="fa fa-star" aria-hidden="true"></span>
-     <span style={{color:this.state.color4}} onClick={this.handleRating4} className="fa fa-star" aria-hidden="true"></span>
-     <span style={{color:this.state.color5}} onClick={this.handleRating5} className="fa fa-star" aria-hidden="true"></span>
-     </div>
-     <div className="d-flex justify-content-center ratingDiv">
-     <input  value={this.state.comment} onChange={this.handleInput} type="text"  className="form-control ratingInput" placeholder="Comments" />
-     <button  onClick={this.handleSubmit} className="btn btn-success" type="button">Submit</button>
+     <input value={this.state.comment} onChange={this.handleInput} type="text" placeholder="Comments" />
+     <button  onClick={this.handleSubmit}  type="button">Submit</button>
      </div>
      </div>
    );
  }
 }
+
+/*ReactDOM.render(
+	<div>
+	 <Weather />
+		<FormComponent />
+	</div>, document.getElementById('badplatsPage')
+);*/
