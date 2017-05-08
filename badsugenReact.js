@@ -23,7 +23,7 @@ class App extends React.Component {
 				
 				if (allData[obj].pressed !== undefined){ // Kontrollerar vilket objekt som klickats på
 					let object = allData[obj];
-					console.log(object);
+					console.log(object.lat, object.lng);
 					let distanceKm = object.distance/1000;
 					let distanceRound = distanceKm.toFixed(1);
 					this.setState({

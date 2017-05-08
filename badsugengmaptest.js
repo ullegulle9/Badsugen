@@ -179,6 +179,8 @@ function createMarker(place) {
 
 }
 
+
+
 let table = document.getElementById('tabellBadplats');
 table.style.display = 'none';
 
