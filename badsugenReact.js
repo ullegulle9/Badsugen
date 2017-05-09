@@ -16,41 +16,19 @@ class App extends React.Component {
 		};
 		this.streetViewImg = this.streetViewImg.bind(this);
 		this.showWeather = this.showWeather.bind(this);
+		this.updateCurrentObj = this.updateCurrentObj.bind(this);
+		this.superfunction = this.superfunction.bind(this);
 	}
 	componentDidMount() {
-		let name = ''
-		
-		// Hämtar data från firebase
-		firebase.database().ref('badplatser/').on('value', function (snapshot) {
-			
-			let allData = snapshot.val();
-			let list = [];
-			//console.log(allData);
-			for (let obj in allData) {
-				list.push(allData[obj]);
-				
-				if (allData[obj].pressed !== undefined){ // Kontrollerar vilket objekt som klickats på
-					let object = allData[obj];
-					//console.log(object.lat, object.lng);
-					let distanceKm = object.distance/1000;
-					let distanceRound = distanceKm.toFixed(1);
-					this.setState({
-							name: object.name,
-							adress: object.adress,
-							distance: distanceRound,
-							id: object.id,
-							hasBeenPressed: true,
-							lat: object.lat,
-							lng: object.lng
-						});
-					
-					this.streetViewImg();
-					this.getAccumulateKey();
-				}
-			}
-			//console.log(this.state.distanceArray);
-		}.bind(this));
-		
+		this.superfunction();
+	}
+	
+	updateCurrentObj(objId){
+		this.setState({
+			currentObjId: objId
+		});
+		console.log('update');
+		this.superfunction();
 	}
 	
 	streetViewImg() {
@@ -92,10 +70,55 @@ class App extends React.Component {
 
     }
 	
+	superfunction(){
+		let name = '';
+		
+		console.log('super',this.state.currentObjId);
+		//let pressedID = localStorage.getItem('localPlaceID');
+		//console.log('pressedID', pressedID);
+		// Hämtar data från firebase
+		//console.log(this.state.currentObjId);
+		firebase.database().ref('badplatser/').on('value', function (snapshot) {
+			
+			let allData = snapshot.val();
+			let list = [];
+			//console.log(allData);
+			for (let obj in allData) {
+				//list.push(allData[obj]);
+				
+				if (allData[obj].id === this.state.currentObjId){ // Kontrollerar vilket objekt som klickats på
+					let object = allData[obj];
+					console.log(object);
+					let distanceKm = object.distance/1000;
+					let distanceRound = distanceKm.toFixed(1);
+					this.setState({
+							name: object.name,
+							adress: object.adress,
+							distance: distanceRound,
+							id: object.id,
+							hasBeenPressed: true,
+							lat: object.lat,
+							lng: object.lng
+						});
+					
+					this.streetViewImg();
+					this.getAccumulateKey();
+				}
+			}
+			
+			//console.log(this.state.distanceArray);
+		}.bind(this));
+	}
+	
 	render() {
-		//this.componentDidMount();
-		 
-			return <div id="badplatsInfo"> 
+		
+		//console.log('oldID', oldId);
+		currentObj = this.updateCurrentObj;
+			//this.componentDidMount();
+		
+		
+		//console.log(this.state.currentObjId);
+		return <div id="badplatsInfo"> 
 				<h2>{this.state.name}</h2> 
 				<p> {this.state.adress}.<br></br>
 					{this.state.distance} km från din position</p>
@@ -103,7 +126,6 @@ class App extends React.Component {
 				<Accuweather weatherText={this.state.weatherText}
 					temperature={this.state.temperature} />
 			</div>
-		 
 	}
 }
 /*

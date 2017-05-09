@@ -14,6 +14,9 @@ var userMarker;
 var map, infoWindow;
 var hasBeenPressed = true;
 var pressedID;
+var currentObj;
+var currentObj2;
+
 /*
 window.onload = function(){
 	firebase.database().ref('pressed/').remove();
@@ -162,16 +165,19 @@ function createMarker(place) {
 	});
 
 	google.maps.event.addListener(marker, 'click', function () {
-		console.log(place);
+		//console.log(place);
 		let obj = {
 			id: place.id,
 			name: place.name
 		};
-		
-		hasBeenPressed = true;
-		firebase.database().ref('badplatser/' + obj.id + '/pressed').set(obj);
+		currentObj(obj.id);
+		currentObj2(obj.id);
+		//console.log('currentObj');
+		//hasBeenPressed = true;
+		//firebase.database().ref('badplatser/' + obj.id + '/pressed').set(obj);
 		pressedID = obj.id;
-		console.log(pressedID);
+		//localStorage.setItem('localPlaceID', pressedID);
+		//console.log(localStorage.getItem('localPlaceID'));
 		document.getElementById('mapRoot').style.display = 'none';
 		document.getElementById('badplatsPage').style.display = 'block';
 		/*

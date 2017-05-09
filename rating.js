@@ -44,7 +44,8 @@ class FormComponent extends React.Component {
       color2: "black",
       color3: "black",
       color4: "black",
-      color5: "black"
+      color5: "black",
+	  currentObjId: null
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit .bind(this);
@@ -55,6 +56,7 @@ class FormComponent extends React.Component {
     this.handleRating4 = this.handleRating4.bind(this);
     this.handleRating5 = this.handleRating5.bind(this);
     this.resetStars = this.resetStars.bind(this);
+	  this.updateCurrentObj = this.updateCurrentObj.bind(this);
  }
   resetStars(){
      this.setState({
@@ -146,15 +148,15 @@ class FormComponent extends React.Component {
    let fb = firebase.database();
    // firebase.database().ref('comment').push({rating: this.state.rating, comment: this.state.comment});
    // var self = this;
-   console.log(this.state.rating)
+   //console.log(this.state.rating)
    let dataId;
    fb.ref('badplatser/').on('value', function (snapshot) {
      let data = snapshot.val();
      // Object.keys(data)
      for(let o in data){
-       if(data[o].pressed !== undefined){
-         // console.log(this.state.rating)
-         dataId = data[o].id
+       if(data[o].id === this.state.currentObjId){
+         console.log(data[o].id);
+         dataId = data[o].id;
        }
      }
 	   let time = new Date().toString();
@@ -168,14 +170,20 @@ class FormComponent extends React.Component {
 			for(let o in data){
        if(data[o].pressed !== undefined){
          // console.log(this.state.rating)
-         console.log(data[o].rateComment);
-		   console.log(data[o]);
+         //console.log(data[o].rateComment);
+		   //console.log(data[o]);
        }
      }
 	});
 	}
+	updateCurrentObj(objId){
+		this.setState({
+			currentObjId: objId
+		});
+		console.log('funk');
+	}
  render() {
-   // const { rating } = this.state;
+   currentObj2 = this.updateCurrentObj;
    return (
      <div>
 		 <div>
