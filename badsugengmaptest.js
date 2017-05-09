@@ -161,7 +161,8 @@ function createMarker(place) {
 	var placeLoc = place.geometry.location;
 	var marker = new google.maps.Marker({
 		map: map,
-		position: place.geometry.location
+		position: place.geometry.location,
+		icon: "img/swimicon-green-small.png"
 	});
 
 	google.maps.event.addListener(marker, 'click', function () {

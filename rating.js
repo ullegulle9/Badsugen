@@ -45,7 +45,8 @@ class FormComponent extends React.Component {
       color3: "black",
       color4: "black",
       color5: "black",
-	  currentObjId: null
+	  currentObjId: null,
+		commentList: []
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit .bind(this);
@@ -160,30 +161,46 @@ class FormComponent extends React.Component {
        }
      }
 	   let time = new Date().toString();
-     fb.ref(`badplatser/${dataId}/rateComment/${time}`).set({rating: this.state.rating, comment: this.state.comment});
+     fb.ref(`omdömen/${dataId}/rateComment/${time}`).set({rating: this.state.rating, comment: this.state.comment});
    }.bind(this))
+   /*
+   let list = []
+   this.setState({
+	   commentList: list
+   });*/
  }
-	componentDidMount(){
+	showCommentsAndRating(){
+		let list = [];
 		let fb = firebase.database();
-		fb.ref('badplatser/').on('value', function (snapshot) {
-     	let data = snapshot.val();
-			for(let o in data){
-       if(data[o].pressed !== undefined){
-         // console.log(this.state.rating)
-         //console.log(data[o].rateComment);
-		   //console.log(data[o]);
-       }
-     }
-	});
+		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/`).on('value', snap => {
+			let data = snap.val();
+			for (let obj in data){
+				let object = {
+					comment: data[obj].comment,
+					rating: data[obj].rating
+				}
+				
+				list.push(object);
+				
+			}
+			this.setState({
+					commentList: list
+				});
+				console.log(this.state.commentList);
+		});
 	}
 	updateCurrentObj(objId){
 		this.setState({
 			currentObjId: objId
 		});
-		console.log('funk');
+		//console.log('funk');
+		this.showCommentsAndRating();
 	}
  render() {
    currentObj2 = this.updateCurrentObj;
+	 let elementList = this.state.commentList.map(el => {
+		 return <li>{el.comment}. Betyg: {el.rating} </li>
+	 });
    return (
      <div>
 		 <div>
@@ -193,11 +210,13 @@ class FormComponent extends React.Component {
 			 <span style={{color:this.state.color3}} onClick={this.handleRating3} className="fa fa-star" aria-hidden="true"></span>
 			 <span style={{color:this.state.color4}} onClick={this.handleRating4} className="fa fa-star" aria-hidden="true"></span>
 			 <span style={{color:this.state.color5}} onClick={this.handleRating5} className="fa fa-star" aria-hidden="true"></span>
+			 
 		 </div>
      <div>
      <input value={this.state.comment} onChange={this.handleInput} type="text" placeholder="Comments" />
      <button  onClick={this.handleSubmit}  type="button">Submit</button>
      </div>
+		   <ul>{elementList}</ul>
      </div>
    );
  }
