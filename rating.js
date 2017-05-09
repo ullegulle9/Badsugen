@@ -46,7 +46,9 @@ class FormComponent extends React.Component {
       color4: "black",
       color5: "black",
 	  currentObjId: null,
-		commentList: []
+		commentList: [],
+		userName: '',
+		userURL: ''
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit .bind(this);
@@ -161,24 +163,38 @@ class FormComponent extends React.Component {
        }
      }
 	   let time = new Date().toString();
-     fb.ref(`omdömen/${dataId}/rateComment/${time}`).set({rating: this.state.rating, comment: this.state.comment});
+     fb.ref(`omdömen/${dataId}/rateComment/${time}`).set({
+		 rating: this.state.rating, 
+		 comment: this.state.comment,
+		 userName: this.state.userName,
+		 userURL: this.state.userURL,
+		 time: time
+	 });
    }.bind(this))
    /*
    let list = []
    this.setState({
 	   commentList: list
    });*/
+   this.showCommentsAndRating();
  }
 	showCommentsAndRating(){
 		let list = [];
+		this.setState({
+			commentList: list
+		});
 		let fb = firebase.database();
 		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/`).on('value', snap => {
 			let data = snap.val();
 			for (let obj in data){
+				console.log(data[obj]);
 				let object = {
 					comment: data[obj].comment,
-					rating: data[obj].rating
-				}
+					rating: data[obj].rating,
+					userName: data[obj].userName,
+					userURL: data[obj].userURL,
+					time: data[obj].time
+				};
 				
 				list.push(object);
 				
@@ -190,16 +206,21 @@ class FormComponent extends React.Component {
 		});
 	}
 	updateCurrentObj(objId){
+		let userName = localStorage.getItem('currentUserName');
+		let userURL = localStorage.getItem('currentUserURL');
+		console.log(userName, userURL);
 		this.setState({
-			currentObjId: objId
+			currentObjId: objId,
+			userName: userName,
+			userURL: userURL
 		});
-		//console.log('funk');
 		this.showCommentsAndRating();
 	}
  render() {
    currentObj2 = this.updateCurrentObj;
 	 let elementList = this.state.commentList.map(el => {
-		 return <li>{el.comment}. Betyg: {el.rating} </li>
+		 return <li>{el.comment}. Betyg: {el.rating} <br></br>
+		 {el.userName}, postat {el.time} <img src={el.userURL}></img> </li>
 	 });
    return (
      <div>

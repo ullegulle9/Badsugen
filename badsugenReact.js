@@ -1,6 +1,6 @@
 
 
-class App extends React.Component {
+class InfoApp extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -12,7 +12,9 @@ class App extends React.Component {
 			hasBeenPressed: false,
 			lat: null,
 			lng: null,
-			weatherText: ''
+			weatherText: '',
+			userName: '',
+			userURL: ''
 		};
 		this.streetViewImg = this.streetViewImg.bind(this);
 		this.showWeather = this.showWeather.bind(this);
@@ -24,8 +26,13 @@ class App extends React.Component {
 	}
 	
 	updateCurrentObj(objId){
+		let userName = localStorage.getItem('currentUserName');
+		let userURL = localStorage.getItem('currentUserURL');
+		console.log(userName, userURL);
 		this.setState({
-			currentObjId: objId
+			currentObjId: objId,
+			userName: userName,
+			userURL: userURL
 		});
 		console.log('update');
 		this.superfunction();
@@ -88,7 +95,7 @@ class App extends React.Component {
 				
 				if (allData[obj].id === this.state.currentObjId){ // Kontrollerar vilket objekt som klickats på
 					let object = allData[obj];
-					//console.log(object);
+					console.log(object);
 					let distanceKm = object.distance/1000;
 					let distanceRound = distanceKm.toFixed(1);
 					this.setState({
@@ -181,7 +188,7 @@ class Accuweather extends React.Component {
 
 ReactDOM.render( 
 	<div>
-	<App distanceArray={distanceArray} />
+	<InfoApp />
 	<Weather />
 		<FormComponent /></div>,
 	document.getElementById('badplatsPage')

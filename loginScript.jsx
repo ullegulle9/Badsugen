@@ -1,14 +1,16 @@
 
 var mapRoot = document.getElementById('mapRoot');
 
-mapRoot.style.display = 'none';
 
-class App extends React.Component {
+var updateUser;
+
+class LoginApp extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             user: null,
-            userProfileUrl:''
+            userProfileUrl:'',
+			userObj: {}
         };
         //bind us together forever and ever
         this.loginFunction = this.loginFunction.bind(this);
@@ -20,15 +22,25 @@ class App extends React.Component {
 		let self = this;
 		let provider = new firebase.auth.FacebookAuthProvider();
 		firebase.auth().signInWithPopup(provider).then(function (result) {
+			//console.log(result.user.displayName);
 			 self.setState({
 				user: result.user,
 				 userProfileUrl : firebase.auth().currentUser.providerData[0].photoURL
 			})
 			//// end checker
-			console.log('Email: ' , self.state.user.email)
-			console.log('DisplayName: ', self.state.user)
-			console.log('userProfilePic', self.state.userProfileUrl )
-		}).catch();
+			//console.log('Email: ' , self.state.user.email)
+			//console.log('DisplayName: ', self.state.user)
+			//console.log('userProfilePic', self.state.userProfileUrl )
+			
+			localStorage.setItem("currentUserName", result.user.displayName);
+			localStorage.setItem("currentUserURL", result.user.photoURL);
+			//console.log(localStorage.getItem('currentUserObj'));
+			/*
+			console.log(obj);
+			this.setState({
+				userObj: obj
+			});*/
+		}.bind(this)).catch();
 	};
 googleFunction() {
 let self = this;
@@ -68,7 +80,11 @@ render() {
 		//mapRoot.style.display = 'block';
 		this.updateDisplay();
 		initMap();
+		//console.log(updateUser);
 		localStorage.setItem("currentUserPicutre", this.state.userProfileUrl);
+		//console.log(this.state.userObj);
+		
+		
 	} else {
 		// User not signed in.
 		console.log("Ej inloggad, Meddelande till användare on inloggning")
@@ -83,6 +99,6 @@ render() {
     }
 }
 ReactDOM.render(
-        <App />,
+        <LoginApp />,
         document.getElementById('loginRoot')
       );

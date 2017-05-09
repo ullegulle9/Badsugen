@@ -27,8 +27,8 @@ document.getElementById('badplatsPage').style.display = 'none';
 
 
 function initMap() {
-
-	map = new google.maps.Map(document.getElementById('map'), {
+	
+		map = new google.maps.Map(document.getElementById('map'), {
 		center: user,
 		zoom: 10
 	});
@@ -78,7 +78,7 @@ function initMap() {
 		handleLocationError(false, infoWindow, map.getCenter());
 	}
 
-
+	
 
 	//console.log(user);
 
