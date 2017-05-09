@@ -1,3 +1,8 @@
+
+var mapRoot = document.getElementById('mapRoot');
+
+mapRoot.style.display = 'none';
+
 class App extends React.Component {
     constructor(props){
         super(props)
@@ -39,8 +44,9 @@ let self = this;
 	});
 };
 
-pushToLocalStorage(){
-	localStorage.setItem("currentUser", "this.state.userProfileUrl");
+updateDisplay(){
+	mapRoot.style.display = 'block';
+	//console.log(isLoggedIn);
 }
 /*
 logoutFunction() {
@@ -59,6 +65,9 @@ render() {
 		loginComp =<p id="nameHolder">Du är nu inloggad</p>;
 		console.log("Inloggad, Gå vidare till sidan")
 		//<button id=logoutButton" onClick={this.logoutFunction}>Logout</button>
+		//mapRoot.style.display = 'block';
+		this.updateDisplay();
+		initMap();
 		localStorage.setItem("currentUserPicutre", this.state.userProfileUrl);
 	} else {
 		// User not signed in.
@@ -74,6 +83,6 @@ render() {
     }
 }
 ReactDOM.render(
-        <App/>,
+        <App />,
         document.getElementById('loginRoot')
       );

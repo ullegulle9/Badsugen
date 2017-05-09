@@ -25,7 +25,9 @@ window.onload = function(){
 
 document.getElementById('badplatsPage').style.display = 'none';
 
+
 function initMap() {
+
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: user,
 		zoom: 10
@@ -62,10 +64,10 @@ function initMap() {
 				map: map
 			});
 			google.maps.event.addListener(userMarker, 'click', function () {
-				
+
 				infoWindow.setContent('<strong>' + userName.name + '</strong>')
 				infoWindow.open(map, this);
-				
+
 			});
 			map.setCenter(user);
 		}, function () {
@@ -76,12 +78,17 @@ function initMap() {
 		handleLocationError(false, infoWindow, map.getCenter());
 	}
 
+
+
 	//console.log(user);
 
 
 	//console.log(request);
 
+
+
 }
+
 
 
 
@@ -97,7 +104,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function callback(results, status) {
-	
+
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
 		//console.log(results);
 		for (var i = 0; i < results.length; i++) {
@@ -131,7 +138,7 @@ function callback(results, status) {
 						lat: lat,
 						lng: lng
 					}
-					
+
 					listBaths(obj);
 
 					// React: setState componentDidMount
@@ -196,9 +203,9 @@ table.style.display = 'none';
 
 function listBaths(obj) {
 	//setTimeout(function, milliseconds)
-	
-		distanceArray.push(obj);
-			/*
+
+	distanceArray.push(obj);
+	/*
 		let distance = obj.distance / 1000;
 		let roundDistance = distance.toFixed(2);
 		table.style.display = 'block';
@@ -215,7 +222,7 @@ function listBaths(obj) {
 function listNearestBaths(list) {
 	//console.log(list);
 	table.style.display = 'block';
-	
+
 	let sortedList = list.sort(function (a, b) {
 		return a.distance - b.distance;
 	});
@@ -229,13 +236,13 @@ function listNearestBaths(list) {
 	tBody.appendChild(row);
 	//console.log(sortedList);
 	for (i = 0; i < sortedList.length; i++) {
-		if (i >= 5){
+		if (i >= 5) {
 			break;
 		}
 		let li = sortedList[i];
 		//console.log('Loopnr: ',i, 'dist:', li.distance);
 		if (sortedList[i] !== undefined) {
-			
+
 
 			let distance = li.distance / 1000;
 			let roundDistance = distance.toFixed(2);
