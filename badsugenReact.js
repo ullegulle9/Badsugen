@@ -14,12 +14,17 @@ class InfoApp extends React.Component {
 			lng: null,
 			weatherText: '',
 			userName: '',
-			userURL: ''
+			userURL: '',
+            weatherTextEmma: "no response",
+            temperatureEmma: 0,
+            iconEmma: "",
+            temperatureCarl: 0
 		};
 		this.streetViewImg = this.streetViewImg.bind(this);
 		this.showWeather = this.showWeather.bind(this);
 		this.updateCurrentObj = this.updateCurrentObj.bind(this);
 		this.superfunction = this.superfunction.bind(this);
+        this.ApixuApi = this.ApixuApi.bind(this);
 	}
 	componentDidMount() {
 		this.superfunction();
@@ -44,7 +49,7 @@ class InfoApp extends React.Component {
     }
 	
 	getAccumulateKey() {
-            let url1 = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=jcsBwFjECEb5T6Us3Wyb2kzXiVFI3hAG&q=57.5807435%2C11.931910099999982&language=sv";
+            let url1 = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=jcsBwFjECEb5T6Us3Wyb2kzXiVFI3hAG&q=${this.state.lat},${this.state.lng}&language=sv`;
             
             let req1= new XMLHttpRequest();
             req1.onreadystatechange=() => {
@@ -75,6 +80,50 @@ class InfoApp extends React.Component {
             req2.open('get', url2);
             req2.send();
 
+    }
+    
+    
+    
+    
+         ApixuApi() {
+            let url1 = `http://api.apixu.com/v1/current.json?key=%20f064c533ae01465682e82338170905&q=${this.state.lat},${this.state.lng}`;
+            
+            let req1= new XMLHttpRequest();
+            req1.onreadystatechange=() => {
+                if(req1.status == 200 && req1.readyState == 4){
+                    let json1= JSON.parse(req1.responseText);
+                    console.log(json1);
+                    let temperature = json1.current.temp_c;
+                    let conditionText = json1.current.condition.text;
+                    let conditionIcon = json1.current.condition.icon;
+                    console.log(temperature);
+                    console.log(conditionText);
+                    console.log(conditionIcon);
+                    this.setState({
+                        weatherTextEmma: conditionText,
+                        temperatureEmma: temperature,
+                        iconEmma: conditionIcon
+                    })
+                }
+            }
+        req1.open('get', url1);
+        req1.send(); 
+        }
+    
+    
+    DarkskyWeatherApi(){
+    console.log("Carls!!!")
+        return fetch(`https://api.darksky.net/forecast/2da378f7b9b4c7a98fde4eebe0238193/57.70887,11.974559999999997`)
+        .then(function(res){
+            return res.json();
+        })
+        .then(function(data){
+            let temp = data.currently.temperature
+            let tempC = (temp-32)*(5/9);
+            return this.setState({
+                temperatureCarl: tempC.toFixed(1) + '°c'
+            }.bind(this));
+        });
     }
 	
 	superfunction(){
@@ -110,12 +159,17 @@ class InfoApp extends React.Component {
 					
 					this.streetViewImg();
 					this.getAccumulateKey();
+                    this.ApixuApi();
+                    this.DarkskyWeatherApi();
 				}
 			}
 			
 			//console.log(this.state.distanceArray);
 		}.bind(this));
 	}
+    
+    
+    
 	
 	render() {
 		
@@ -132,6 +186,8 @@ class InfoApp extends React.Component {
 				<img src={this.streetViewImg()}></img>
 				<Accuweather weatherText={this.state.weatherText}
 					temperature={this.state.temperature} />
+                <EmmaApixuWeather weatherTextEmma={this.state.weatherTextEmma} temperatureEmma={this.state.temperatureEmma} iconEmma={this.state.iconEmma} />
+                 <CarlDarkskyWeather temperatureCarl={this.state.temperatureCarl}/>
 			</div>
 	}
 }
@@ -185,6 +241,29 @@ class Accuweather extends React.Component {
                 </div>
 		}
 }
+
+
+class EmmaApixuWeather extends React.Component {
+        render(){
+			return <div> 
+				<h4>Väder från Apixu</h4>
+				<p>
+                    {this.props.weatherTextEmma},    {this.props.temperatureEmma}°C</p>
+                </div>
+		}
+}
+
+class CarlDarkskyWeather extends React.Component {
+        render(){
+			return <div> 
+				<h4>Väder från Darksky</h4>
+				<p>
+                    {this.props.temperatureCarl}°C</p>
+                </div>
+		}
+}
+
+
 
 ReactDOM.render( 
 	<div>
