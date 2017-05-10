@@ -163,3 +163,9 @@ input {
 ul {
 	list-style: none;
 }
+#logoutButton{
+	display: none;
+	position: absolute;
+	top: 5vh;
+	right: 5vw;
+}
