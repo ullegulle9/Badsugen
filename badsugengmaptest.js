@@ -84,7 +84,10 @@ function initMap() {
 
 
 	//console.log(request);
-
+	logoutButton.addEventListener('click', function(){
+		logoutButton.style.display='none';
+		logoutFuntion()
+	})
 
 
 }
@@ -258,9 +261,16 @@ function listNearestBaths(list) {
 
 function deleteSwe(string) {
 	let deleteAmount = string.length - 10;
-
 	//console.log(string.length);
 	let endPos = string.length - 9;
 	let newString = string.substring(0, endPos);
 	return newString;
 }
+let logoutFuntion = function () {
+	firebase.auth().signOut().then(function (result) {
+		console.log("You are no more my friend");
+	}).catch(function (error) {
+		// Utloggning misslyckades
+		console.log("Det gick inte som vi ville" + error);
+	});
+};
