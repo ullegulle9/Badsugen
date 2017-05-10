@@ -159,7 +159,7 @@ class InfoApp extends React.Component {
 				
 				if (allData[obj].id === this.state.currentObjId){ // Kontrollerar vilket objekt som klickats på
 					let object = allData[obj];
-					console.log(object);
+					//console.log(object);
 					let distanceKm = object.distance/1000;
 					let distanceRound = distanceKm.toFixed(1);
 					this.setState({
