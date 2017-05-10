@@ -87,6 +87,7 @@ function initMap() {
 	logoutButton.addEventListener('click', function(){
 		logoutButton.style.display='none';
 		logoutFuntion()
+		window.location.reload()
 	})
 
 

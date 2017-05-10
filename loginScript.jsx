@@ -77,7 +77,7 @@ render() {
 	} else {
 		// User not signed in.
 		console.log("Ej inloggad, Meddelande till användare on inloggning")
-		loginComp = <div><p id="nameHolder">Please login with Facebook aor Google</p><button className="loginBtn loginBtn--facebook" id="loginButton" onClick={this.loginFunction} > Login with Facebook </button><button className="loginBtn loginBtn--google" id="googleLogin" onClick={this.googleFunction}> Login with Google </button> </div>	
+		loginComp = <div><p id="nameHolder">Please login with Facebook or Google</p><button className="loginBtn loginBtn--facebook" id="loginButton" onClick={this.loginFunction} > Login with Facebook </button><button className="loginBtn loginBtn--google" id="googleLogin" onClick={this.googleFunction}> Login with Google </button> </div>	
 	}
 	console.log("current user from firebase ",firebase.auth().currentUser);
 
