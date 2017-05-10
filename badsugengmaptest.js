@@ -12,7 +12,6 @@ let userName = {
 var userMarker;
 
 var map, infoWindow;
-var hasBeenPressed = true;
 var pressedID;
 var currentObj;
 var currentObj2;
