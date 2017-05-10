@@ -26,8 +26,8 @@ class InfoApp extends React.Component {
 		this.ApixuApi = this.ApixuApi.bind(this);
 	}
 	componentDidMount() {
-		this.superfunction();
-		this.openWeather();
+		//this.superfunction();
+		
 	}
 	
 	updateCurrentObj(objId){
@@ -101,6 +101,7 @@ class InfoApp extends React.Component {
 	}
 	
 	ApixuApi() {
+		console.log('körs');
             let url1 = `http://api.apixu.com/v1/current.json?key=%20f064c533ae01465682e82338170905&q=${this.state.lat},${this.state.lng}`;
             
             let req1= new XMLHttpRequest();
@@ -171,15 +172,19 @@ class InfoApp extends React.Component {
 							lng: object.lng
 						});
 					
-					this.streetViewImg();
-					this.getAccumulateKey();
-					this.ApixuApi();
-                    this.DarkskyWeatherApi();
+					
 				}
 			}
 			
+			
 			//console.log(this.state.distanceArray);
 		}.bind(this));
+		this.openWeather();
+		this.streetViewImg();
+		this.getAccumulateKey();
+		this.ApixuApi();
+        this.DarkskyWeatherApi();
+		//console.log('NOOOOO');
 	}
 	
 	render() {
