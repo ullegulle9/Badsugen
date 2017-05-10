@@ -9,7 +9,7 @@ class LoginApp extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            user: null,
+            user: firebase.auth().currentUser,
             userProfileUrl:'',
         };
         //bind us together forever and ever
@@ -56,6 +56,7 @@ let self = this;
 updateDisplay(){
 	mapRoot.style.display = 'block';
 	logoutButton.style.display = 'block';
+	
 	//console.log(isLoggedIn);
 }
 	
