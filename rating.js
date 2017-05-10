@@ -1,3 +1,4 @@
+/*
 class Weather extends React.Component{
   constructor() {
     super();
@@ -31,7 +32,7 @@ class Weather extends React.Component{
         </div>
       )
     }
-}
+}*/
 let currentUserPicture = localStorage.getItem("currentUserPicture")
 
 class FormComponent extends React.Component {

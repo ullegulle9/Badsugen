@@ -9,20 +9,24 @@ class InfoApp extends React.Component {
 			distance: null,
 			id: null,
 			currentObjId: '',
-			hasBeenPressed: false,
 			lat: null,
 			lng: null,
 			weatherText: '',
 			userName: '',
-			userURL: ''
+			userURL: '',
+			owWind: null,
+             owTemp: null,
+             owIcon: null
 		};
 		this.streetViewImg = this.streetViewImg.bind(this);
 		this.showWeather = this.showWeather.bind(this);
 		this.updateCurrentObj = this.updateCurrentObj.bind(this);
 		this.superfunction = this.superfunction.bind(this);
+		this.openWeather = this.openWeather.bind(this);
 	}
 	componentDidMount() {
 		this.superfunction();
+		this.openWeather();
 	}
 	
 	updateCurrentObj(objId){
@@ -76,6 +80,24 @@ class InfoApp extends React.Component {
             req2.send();
 
     }
+	
+	openWeather(){
+		console.log('openWe');
+		return fetch(`http://api.openweathermap.org/data/2.5/weather?q=Gothenbueg&APPID=2d3055ddb7941ccc16f48f3aaeb29121&units=metric`)
+         .then(function(res){
+           return res.json();
+         }) //chain
+         .then(function(data){
+           var iconUrl = "http://openweathermap.org/img/w/" + data.weather[0].icon+ ".png";
+           let vind = data.wind.speed + "m/s";
+           let temp = data.main.temp + "°C";
+           return this.setState({
+             owWind: vind,
+             owTemp: temp,
+             owIcon: iconUrl
+           }) ;
+         }.bind(this));
+	}
 	
 	superfunction(){
 		let name = '';
@@ -132,6 +154,9 @@ class InfoApp extends React.Component {
 				<img src={this.streetViewImg()}></img>
 				<Accuweather weatherText={this.state.weatherText}
 					temperature={this.state.temperature} />
+			<OpenWeather icon={this.state.owIcon}
+			wind={this.state.owWind}
+				temp={this.state.owTemp} />
 			</div>
 	}
 }
@@ -186,10 +211,20 @@ class Accuweather extends React.Component {
 		}
 }
 
+class OpenWeather extends React.Component{
+    render(){
+      return (
+        <div style={{marginTop:'2%'}}>
+        <img src={this.props.icon}/>
+        <span>windSpeed:{this.props.wind}, temperature: {this.props.temp}</span>
+        </div>
+      )
+    }
+}
+
 ReactDOM.render( 
 	<div>
 	<InfoApp />
-	<Weather />
 		<FormComponent /></div>,
 	document.getElementById('badplatsPage')
 );

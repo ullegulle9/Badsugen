@@ -27,7 +27,7 @@ document.getElementById('badplatsPage').style.display = 'none';
 
 
 function initMap() {
-	
+	distanceArray = [];
 		map = new google.maps.Map(document.getElementById('map'), {
 		center: user,
 		zoom: 10
@@ -98,8 +98,8 @@ var distanceArray = [];
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 	infoWindow.setPosition(pos);
 	infoWindow.setContent(browserHasGeolocation ?
-		'Error: The Geolocation service failed.' :
-		'Error: Your browser doesn\'t support geolocation.');
+		'Din plats kunde inte lokaliseras' :
+		'Var vänlig tillåt applikationen att hämta platsinfo och försök igen');
 	infoWindow.open(map);
 }
 
@@ -127,6 +127,7 @@ function callback(results, status) {
 				if (status !== 'OK') {
 					console.log(status);
 				} else {
+					
 					//console.log(response.destinationAddresses[0]);
 					//console.log(bName);
 					//console.log(response.rows[0].elements[0].distance.value);
@@ -138,7 +139,9 @@ function callback(results, status) {
 						lat: lat,
 						lng: lng
 					}
-
+					//distanceArray.push(obj);
+					//console.log('obj', obj);
+					//console.log(distanceArray);
 					listBaths(obj);
 
 					// React: setState componentDidMount
@@ -203,8 +206,9 @@ table.style.display = 'none';
 
 function listBaths(obj) {
 	//setTimeout(function, milliseconds)
-
+	
 	distanceArray.push(obj);
+	//console.log('distanceArray', distanceArray);
 	/*
 		let distance = obj.distance / 1000;
 		let roundDistance = distance.toFixed(2);
@@ -220,12 +224,13 @@ function listBaths(obj) {
 }
 
 function listNearestBaths(list) {
-	//console.log(list);
+	//console.log('list',list);
 	table.style.display = 'block';
-
+	//console.log('list',list);
 	let sortedList = list.sort(function (a, b) {
 		return a.distance - b.distance;
 	});
+	
 	let tBody = document.getElementById('tBody');
 	tBody.innerHTML = '';
 	let row = document.createElement('tr');
