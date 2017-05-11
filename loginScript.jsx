@@ -75,11 +75,11 @@ render() {
 		//console.log(updateUser);
 		localStorage.setItem("currentUserPicutre", this.state.userProfileUrl);
 		
-	} else {
-		// User not signed in.
-		console.log("Ej inloggad, Meddelande till användare on inloggning")
-		loginComp = <div><p id="nameHolder">Please login with Facebook or Google</p><button className="loginBtn loginBtn--facebook" id="loginButton" onClick={this.loginFunction} > Login with Facebook </button><button className="loginBtn loginBtn--google" id="googleLogin" onClick={this.googleFunction}> Login with Google </button> </div>	
-	}
+	} else{
+        // User not signed in.
+        console.log("Ej inloggad, Meddelande till användare on inloggning")
+        loginComp = <div><p id="nameHolder"></p><button className="loginBtn loginBtn--facebook" id="loginButton" onClick={this.loginFunction} >Logga in med Facebook <i className="fa fa-facebook fa-lg" aria-hidden="true"></i></button><br /> eller <br /><button className="loginBtn loginBtn--google" id="googleLogin" onClick={this.googleFunction}> Logga in med Google <i className="fa fa-google-plus fa-lg" aria-hidden="true"></i></button> </div>  
+    }
 	console.log("current user from firebase ",firebase.auth().currentUser);
 
     return (

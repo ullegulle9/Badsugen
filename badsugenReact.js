@@ -33,7 +33,7 @@ class InfoApp extends React.Component {
 	updateCurrentObj(objId){
 		let userName = localStorage.getItem('currentUserName');
 		let userURL = localStorage.getItem('currentUserURL');
-		//console.log(userName, userURL);
+		console.log('updateCurrentObj:', userName, userURL);
 		this.setState({
 			currentObjId: objId,
 			userName: userName,
@@ -127,68 +127,79 @@ class InfoApp extends React.Component {
         }
 	
 	 DarkskyWeatherApi(){
-    console.log("Carls!!!")
-		let long = this.state.lng.toFixed(4);
-		let latt = this.state.lat.toFixed(4);
+		 let long, latt;
+		 if(!this.state.lng) {
+			 long = 0;
+			 latt = 0;
+		 } else {
+			console.log("Carls!!!" , this.state.lng)
+			let long = this.state.lng.toFixed(4);
+			let latt = this.state.lat.toFixed(4);
+		 }
 		console.log(long)
+		let self = this;
  		return fetch(`https://opendata-download-metfcst.smhi.se/api/category/pmp2g/version/2/geotype/point/lon/${long}/lat/${latt}/data.json`)
 		.then(function(res){
 			return res.json();
 		})
 		.then(function(data){
 			let temp = data.timeSeries[0].parameters[1].values[0] 
-			return this.setState({
+			return self.setState({
 				temperature: temp.toFixed(1) + '°c'
 			});
-		}.catch(function(error){
-			console.log('DarkSky ' , error)
-		})
-			  .bind(this));
+		}).catch(function(error){
+			console.log('DarkSky ',error)
+		});//.bind(this));
 	}
 	
 	superfunction(){
 		let name = '';
 		
-		//console.log('super',this.state.currentObjId);
+		console.log('super',this.state.currentObjId);
 		//let pressedID = localStorage.getItem('localPlaceID');
 		//console.log('pressedID', pressedID);
 		// Hämtar data från firebase
 		//console.log(this.state.currentObjId);
 		firebase.database().ref('badplatser/').on('value', function (snapshot) {
-			
+			console.log('superfunction firebase on value');
 			let allData = snapshot.val();
 			let list = [];
 			//console.log(allData);
+			let newstate = null;
 			for (let obj in allData) {
 				//list.push(allData[obj]);
+				//console.log('alldata obj:', allData[obj])
 				
 				if (allData[obj].id === this.state.currentObjId){ // Kontrollerar vilket objekt som klickats på
 					let object = allData[obj];
 					//console.log(object);
 					let distanceKm = object.distance/1000;
 					let distanceRound = distanceKm.toFixed(1);
-					this.setState({
-							name: object.name,
-							adress: object.adress,
-							distance: distanceRound,
-							id: object.id,
-							hasBeenPressed: true,
-							lat: object.lat,
-							lng: object.lng
-						});
-					
-					
+					newstate = {
+						name: object.name,
+						adress: object.adress,
+						distance: distanceRound,
+						id: object.id,
+						hasBeenPressed: true,
+						lat: object.lat,
+						lng: object.lng
+					};
 				}
 			}
+			console.log('superfunction after for', newstate)
+			if( newstate != null )
+				this.setState(newstate);
 			
 			
 			//console.log(this.state.distanceArray);
 		}.bind(this));
+		
+		console.log('lat:', this.state.lat)
+		this.DarkskyWeatherApi();
 		//this.openWeather();
 		this.streetViewImg();
 		//this.getAccumulateKey();
 		//this.ApixuApi();
-        //this.DarkskyWeatherApi();
 		//console.log('NOOOOO');
 	}
 	

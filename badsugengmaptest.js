@@ -184,6 +184,8 @@ function createMarker(place) {
 			id: place.id,
 			name: place.name
 		};
+		document.getElementById('mapRoot').style.display = 'none';
+		document.getElementById('badplatsPage').style.display = 'block';
 		currentObj(obj.id);
 		currentObj2(obj.id);
 		//console.log('currentObj');
@@ -192,8 +194,6 @@ function createMarker(place) {
 		pressedID = obj.id;
 		//localStorage.setItem('localPlaceID', pressedID);
 		//console.log(localStorage.getItem('localPlaceID'));
-		document.getElementById('mapRoot').style.display = 'none';
-		document.getElementById('badplatsPage').style.display = 'block';
 		/*
 		infoWindow.setContent('<strong>' + place.name + '</strong>' + '<br>' + place.vicinity + '<br>Betyg: ' + place.rating);
 		
