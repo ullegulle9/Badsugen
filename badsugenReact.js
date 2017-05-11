@@ -84,7 +84,7 @@ class InfoApp extends React.Component {
 	
 	openWeather(){
 		console.log('openWe');
-		return fetch(`http://api.openweathermap.org/data/2.5/weather?q=Gothenbueg&APPID=2d3055ddb7941ccc16f48f3aaeb29121&units=metric`)
+		return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.lat},${this.state.lng}&APPID=2d3055ddb7941ccc16f48f3aaeb29121&units=metric`)
          .then(function(res){
            return res.json();
          }) //chain
@@ -127,18 +127,23 @@ class InfoApp extends React.Component {
 	
 	 DarkskyWeatherApi(){
     console.log("Carls!!!")
-        return fetch(`https://api.darksky.net/forecast/2da378f7b9b4c7a98fde4eebe0238193/57.70887,11.974559999999997`)
-        .then(function(res){
-            return res.json();
-        })
-        .then(function(data){
-            let temp = data.currently.temperature
-            let tempC = (temp-32)*(5/9);
-            return this.setState({
-                temperatureCarl: tempC.toFixed(1) + '°c'
-            }.bind(this));
-        });
-    }
+		let long = this.state.lng.toFixed(4);
+		let latt = this.state.lat.toFixed(4);
+		console.log(long)
+ 		return fetch(`https://opendata-download-metfcst.smhi.se/api/category/pmp2g/version/2/geotype/point/lon/${long}/lat/${latt}/data.json`)
+		.then(function(res){
+			return res.json();
+		})
+		.then(function(data){
+			let temp = data.timeSeries[0].parameters[1].values[0] 
+			return this.setState({
+				temperature: temp.toFixed(1) + '°c'
+			});
+		}.catch(function(error){
+			console.log('DarkSky ' , error)
+		})
+			  .bind(this));
+	}
 	
 	superfunction(){
 		let name = '';
