@@ -1,36 +1,35 @@
 div {
-	border-style: none
+    border-style: none
 }
-
 * {
-	outline: none;
+    outline: none;
 }
-
 body {
-	text-align: center;
-	font-family: 'Roboto', sans-serif;
-	color: black;
-	background-image: url("https://i0.wp.com/blogg.kaprifolblogg.se/wp-content/uploads/2014/07/Rinkenas-4.jpg");
-	background-color: #cccccc;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    color: #4B2E26;
+    background-image: url("https://i0.wp.com/blogg.kaprifolblogg.se/wp-content/uploads/2014/07/Rinkenas-4.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #cccccc;
 }
-
 h1 {
-	font-family: 'Pacifico', cursive;
-	font-size: 40px;
+    font-family: 'Pacifico', cursive;
+    font-size: 45px;
 }
-
+h2 {
+    text-align: center;
+}
 h3 {
-	text-align: center !important;
+    text-align: center !important;
 }
-
 button {
-	background-color: white;
-	border-radius: 5px;
-	padding: 10px;
-	margin: 5px;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
 }
-
-
 /*
   #map {
     width: 90%;
@@ -38,7 +37,6 @@ button {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;    
     }
-
 */
 #badplatsPage {
     width: 90%;
@@ -47,125 +45,154 @@ button {
     border-radius: 5px;
       border-color: white;
 }
-
 #map {
-	height: 400px;
-	width: 80%;
-	margin: auto;
+    height: 400px;
+    width: 80%;
+    margin: auto;
 }
-
 #mapSection {
     margin: auto;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;  
-	background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 5px; 
-	margin: auto;
-	height: 500px;
-	display: flex;
-	justify-content: center;
+    margin: auto;
+    height: 500px;
+    display: flex;
+    justify-content: center;
     }
-
 #badplatsInfo {
-	padding-top: 15px;
-	padding-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
 }
-
 #badplatsImg {
-	width: 90%;
-	border-radius: 5px;
-	margin: auto;
+    width: 90%;
+    border-radius: 5px;
+    margin: auto;
 }
-
 #locationInfo {}
-
 #locationIcon {
-	height: 25px;
+    height: 25px;
 }
-
 span {
-	padding: 4px;
+    padding: 4px;
 }
-
 #rateName {
-	padding: 0;
-	font-weight: bold;
-	margin-bottom: 5px;
+    padding: 0;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
-
 #weatherIcon {
-	height: 25px;
+    height: 25px;
 }
-
 #starsPart {
-	margin: auto;
-	width: 170px;
+    margin: auto;
+    width: 170px;
 }
-
 #ratingPart {
-	margin: auto;
-	max-width: 500px;
+    margin: auto;
+    max-width: 500px;
 }
-
 #ratedPart {
-	margin: auto;
-	max-width: 500px;
-	text-align: left;
-	padding-bottom: 25px;
+    margin: auto;
+    max-width: 500px;
+    text-align: left;
+    padding-bottom: 25px;
 }
-
 #starsPart2 {
-	margin-top: 10px;
-	margin: auto;
-	width: 120px;
+    margin-top: 10px;
+    margin: auto;
+    width: 120px;
 }
-
 #profilePic {
-	width: 80px;
+    width: 80px;
 }
-
 input {
-	width: 220px;
-	padding: 20px;
-	margin: 5px;
-	border-radius: 5px;
-	background-color: white;
+    width: 220px;
+    padding: 20px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: white;
 }
-
 #tableForm {
-	margin-top: 25px;
-	margin-bottom: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
-
 #tabellBadplats {
-	text-align: left;
-	background-color: rgba(255, 255, 255, 0.5);
-	padding: 15px;
-	margin-top: 25px;
-	margin-bottom: 25px;
-	border-radius: 5px;
-	margin: auto;
-	width: 90%;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    margin: auto;
+    width: 90%;
 }
-
-@media (min-width: 768px) {
-	#mapSection {
-		max-width: 700px;
-	}
-	#badplatsPage {
-		max-width: 700px;
-	}
-	#tabellBadplats {
-		max-width: 700px;
-	}
-}
-
 ul {
-	list-style: none;
+       list-style: none;
+    }
+td {
+    padding: 5px;
 }
-#logoutButton{
-	display: none;
-	position: absolute;
-	top: 5vh;
-	right: 5vw;
+tr {
+    padding: 5px;
+}
+th {
+    padding: 5px;
+    }
+@media (max-width: 355px) {
+    #tabellBadplats {
+        font-size: 9pt;
+    } 
+}
+@media (min-width: 768px) {
+    #mapSection {
+        max-width: 700px;
+    }
+    #badplatsPage {
+        max-width: 700px;
+    }
+    #tabellBadplats {
+        max-width: 700px;
+    }
+    td {
+        padding: 15px;
+    }
+    tr {
+        padding: 15px;
+    }
+    th {
+        padding: 15px;
+    }
+}
+.loginBtn--facebook {
+  background-color: #4C69BA ;
+  background-image: linear-gradient(#4C69BA , #3B55A0 );
+  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+  text-shadow: 0 -1px 0 #354C8C ;
+  color: white;    
+}
+/*.loginBtn--facebook:before {
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png (1kB) ') 6px 6px no-repeat;
+}*/
+.loginBtn {
+    border-width:0px;
+    font-size: 11pt;
+}
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+  background-color: #3b5998 ;
+/*  background-image: linear-gradient(#5B7BD5 , #4864B1 );*/
+}
+.loginBtn--google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background: #DD4B39 ;
+  color: white;
+}
+/*.loginBtn--google:before {
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png (1kB)
+') 6px 6px no-repeat;
+}*/
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #ec705f ;
 }
