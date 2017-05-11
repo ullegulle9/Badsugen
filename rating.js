@@ -157,11 +157,13 @@ class FormComponent extends React.Component {
    // var self = this;
    //console.log(this.state.rating)
 	 console.log('submit körs');
+
    let dataId = this.state.currentObjId;
    
    let time = new Date().toLocaleString();
+
      fb.ref(`omdömen/${dataId}/rateComment/${time}`).set({
-		 rating: this.state.rating, 
+		 rating: this.state.rating,
 		 comment: this.state.comment,
 		 userName: this.state.userName,
 		 userURL: this.state.userURL,
@@ -193,13 +195,15 @@ class FormComponent extends React.Component {
 					userURL: data[obj].userURL,
 					time: data[obj].time
 				};
-				
+
 				list.push(object);
+
 				this.setState({
 					commentList: list
 				});
+
 			}
-			
+
 		});
 	}
 	updateCurrentObj(objId){
@@ -213,14 +217,15 @@ class FormComponent extends React.Component {
 			userURL: userURL
 		});
 		this.showCommentsAndRating();
-		
+
 	}
-	
+
 	clickList(ev){
-		
+
 		let fb = firebase.database();
-		//console.log(ev.target)
-		
+
+		console.log(ev.target)
+
 		let commentId = ev.target.id;
 		//console.log(commentId);
 		this.setState({
@@ -230,8 +235,8 @@ class FormComponent extends React.Component {
 	/*	*/
 		this.showCommentsAndRating();
 	}
-	
-	
+
+
 	handleEdit(){
 		//console.log('click');
 		//console.log(this.state.clickedID);
@@ -250,21 +255,21 @@ class FormComponent extends React.Component {
 			/*
 			for (let obj in data){
 				console.
-				
-				
+
+
 			} */
 		});
-		
+
 		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/${this.state.clickedID}`).set(obj);
-		
+
 		this.setState({
 			clickedID: null
 		});
-		
+
 		this.showCommentsAndRating();
 	}
-	
-	
+
+
  render() {
    currentObj2 = this.updateCurrentObj;
 	 let elementList = this.state.commentList.map(el => {
@@ -282,7 +287,7 @@ class FormComponent extends React.Component {
 			 <span style={{color:this.state.color3}} onClick={this.handleRating3} className="fa fa-star" aria-hidden="true"></span>
 			 <span style={{color:this.state.color4}} onClick={this.handleRating4} className="fa fa-star" aria-hidden="true"></span>
 			 <span style={{color:this.state.color5}} onClick={this.handleRating5} className="fa fa-star" aria-hidden="true"></span>
-			 
+
 		 </div>
      <div>
      <input value={this.state.comment} onChange={this.handleInput} type="text" placeholder="Kommentarer..." />
@@ -290,8 +295,8 @@ class FormComponent extends React.Component {
      </div>
 		   <ul>{elementList}</ul>
      </div>
-	 
-   
+
+
    );
 	 } else {
 		 return <div>
