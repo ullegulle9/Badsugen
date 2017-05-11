@@ -101,8 +101,8 @@ class InfoApp extends React.Component {
 	}
 	
 	ApixuApi() {
-		console.log('körs');
-            let url1 = `http://api.apixu.com/v1/current.json?key=%20f064c533ae01465682e82338170905&q=${this.state.lat},${this.state.lng}`;
+        //console.log('körs');
+            let url1 = `http://api.apixu.com/v1/current.json?key=670e240b3e15413496a82430171105&q=${this.state.lat},${this.state.lng}`;
             
             let req1= new XMLHttpRequest();
             req1.onreadystatechange=() => {
@@ -119,7 +119,7 @@ class InfoApp extends React.Component {
                         weatherTextEmma: conditionText,
                         temperatureEmma: temperature,
                         iconEmma: conditionIcon
-                    })
+                    });
                 }
             }
         req1.open('get', url1);
@@ -171,7 +171,7 @@ class InfoApp extends React.Component {
 							lat: object.lat,
 							lng: object.lng
 						});
-					
+					//this.ApixuApi();
 					
 				}
 			}
@@ -182,7 +182,7 @@ class InfoApp extends React.Component {
 		//this.openWeather();
 		this.streetViewImg();
 		//this.getAccumulateKey();
-		//this.ApixuApi();
+		
         //this.DarkskyWeatherApi();
 		//console.log('NOOOOO');
 	}

@@ -27,7 +27,7 @@ document.getElementById('badplatsPage').style.display = 'none';
 
 function initMap() {
 	distanceArray = [];
-		map = new google.maps.Map(document.getElementById('map'), {
+	map = new google.maps.Map(document.getElementById('map'), {
 		center: user,
 		zoom: 10
 	});
@@ -77,14 +77,14 @@ function initMap() {
 		handleLocationError(false, infoWindow, map.getCenter());
 	}
 
-	
+
 
 	//console.log(user);
 
 
 	//console.log(request);
-	logoutButton.addEventListener('click', function(){
-		logoutButton.style.display='none';
+	logoutButton.addEventListener('click', function () {
+		logoutButton.style.display = 'none';
 		logoutFuntion()
 		window.location.reload()
 	})
@@ -113,7 +113,6 @@ function callback(results, status) {
 		for (var i = 0; i < results.length; i++) {
 			let lat = results[i].geometry.location.lat();
 			let lng = results[i].geometry.location.lng();
-			//console.log(lng);
 			let id = results[i].id;
 			let bName = results[i].name;
 			let startDestination = user;
@@ -130,8 +129,8 @@ function callback(results, status) {
 				if (status !== 'OK') {
 					console.log(status);
 				} else {
-					
-					//console.log(response.destinationAddresses[0]);
+
+					//console.log(response);
 					//console.log(bName);
 					//console.log(response.rows[0].elements[0].distance.value);
 					let obj = {
@@ -209,7 +208,7 @@ table.style.display = 'none';
 
 function listBaths(obj) {
 	//setTimeout(function, milliseconds)
-	
+
 	distanceArray.push(obj);
 	//console.log('distanceArray', distanceArray);
 	/*
@@ -233,7 +232,7 @@ function listNearestBaths(list) {
 	let sortedList = list.sort(function (a, b) {
 		return a.distance - b.distance;
 	});
-	
+
 	let tBody = document.getElementById('tBody');
 	tBody.innerHTML = '';
 	let row = document.createElement('tr');
@@ -256,7 +255,17 @@ function listNearestBaths(list) {
 			let roundDistance = distance.toFixed(2);
 			let formAdress = deleteSwe(li.adress);
 			let row = document.createElement('tr');
+			row.id = li.id;
 			let html = `<td>${li.name}</td><td>${formAdress}</td><td>${roundDistance}km</td>`;
+			row.addEventListener('click', ev => {
+				let obj = {
+					id: ev.target.parentElement.id
+				};
+				currentObj(obj.id);
+				currentObj2(obj.id);
+				document.getElementById('mapRoot').style.display = 'none';
+				document.getElementById('badplatsPage').style.display = 'block';
+			});
 			row.innerHTML = html;
 			document.getElementById('tBody').appendChild(row);
 		}
