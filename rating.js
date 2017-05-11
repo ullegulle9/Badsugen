@@ -156,9 +156,11 @@ class FormComponent extends React.Component {
    // firebase.database().ref('comment').push({rating: this.state.rating, comment: this.state.comment});
    // var self = this;
    //console.log(this.state.rating)
+	 console.log('submit körs');
    let dataId;
    fb.ref('badplatser/').on('value', function (snapshot) {
      let data = snapshot.val();
+	   console.log('firebase handle submit');
      // Object.keys(data)
      for(let o in data){
        if(data[o].id === this.state.currentObjId){
@@ -166,7 +168,9 @@ class FormComponent extends React.Component {
          dataId = data[o].id;
        }
      }
-	   let time = new Date().toString();
+
+   }.bind(this))
+   let time = new Date().toString();
      fb.ref(`omdömen/${dataId}/rateComment/${time}`).set({
 		 rating: this.state.rating,
 		 comment: this.state.comment,
@@ -174,15 +178,10 @@ class FormComponent extends React.Component {
 		 userURL: this.state.userURL,
 		 time: time
 	 });
-   }.bind(this))
-   /*
-   let list = []
-   this.setState({
-	   commentList: list
-   });*/
    this.showCommentsAndRating();
  }
 	showCommentsAndRating(){
+		console.log('showcomments kör');
 		let list = [];
 		this.setState({
 			commentList: list
@@ -203,31 +202,35 @@ class FormComponent extends React.Component {
 				list.push(object);
 
 			}
-			this.setState({
+
+		});
+		this.setState({
 					commentList: list
 				});
 				console.log(this.state.commentList);
-		});
 	}
 	updateCurrentObj(objId){
+		console.log('updatecurrentObj');
 		let userName = localStorage.getItem('currentUserName');
 		let userURL = localStorage.getItem('currentUserURL');
-		console.log(userName, userURL);
+		//console.log(userName, userURL);
 		this.setState({
 			currentObjId: objId,
 			userName: userName,
 			userURL: userURL
 		});
 		this.showCommentsAndRating();
+
 	}
 
 	clickList(ev){
 
 		let fb = firebase.database();
+
 		console.log(ev.target)
 
 		let commentId = ev.target.id;
-		console.log(commentId);
+		//console.log(commentId);
 		this.setState({
 			clickedID: commentId
 		});
@@ -238,13 +241,13 @@ class FormComponent extends React.Component {
 
 
 	handleEdit(){
-		console.log('click');
-		console.log(this.state.clickedID);
+		//console.log('click');
+		//console.log(this.state.clickedID);
 		let fb = firebase.database();
 		let obj;
 		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/${this.state.clickedID}`).on('value', snap => {
 			let data = snap.val();
-			console.log(data);
+			//console.log(data);
 			obj = {
 					comment: this.state.comment,
 					rating: data.rating,
@@ -276,7 +279,7 @@ class FormComponent extends React.Component {
 		 return <li key={el.time} id={el.time} onClick={this.clickList} >{el.comment}. Betyg: {el.rating} <br></br>
 		 {el.userName}, postat {el.time} <img src={el.userURL}></img> </li>
 	 });
-	 console.log(this.state.clickedID);
+	 //console.log(this.state.clickedID);
 	 if (this.state.clickedID === null) {
 		 return (
      <div>
