@@ -2,31 +2,32 @@
 <html>
 
 <head>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="badsugengmaptest.css">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Pacifico" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
 	<script src="https://unpkg.com/react@latest/dist/react.js"></script>
 	<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
-	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js" charset="utf-8"></script>
-	
-	<link rel="stylesheet" href="node_modules/react-star-rating/dist/css/react-star-rating.min.css">
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link rel="stylesheet" href="node_modules/react-star-rating/dist/css/react-star-rating.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+
 </head>
 
 <body>
 	<header>
 		<h1>Badsugen.se</h1>
 	</header>
-
-
+	<button id="logoutButton">Logga ut</button>
+	<div id="loginRoot"></div>
 	<div id="infoSite">
 
 	</div>
-	
+
 	<!-- Make visible when logged in -->
-	<div id="mapRoot">
+	<div id="mapRoot" style="display: none">
 		<div id="mapSection">
 			<div id="map"></div>
 		</div>
@@ -50,25 +51,27 @@
 	<!-- Test-React -->
 
 	<div id="badplatsPage">
-	
+
 	</div>
 
-	
 
 
 
 
+
+	<script src="loginScript.jsx" type="text/babel"></script> 
 	
 	<script src="badsugengmaptest.js">
-
-
 	</script>
+	
+	<!--<script src="badsugen-React.jsx" type="text/babel"></script>-->
 	<script type="text/babel" src="rating.js">
 	</script>
 	<script type="text/babel" src="badsugenReact.js">
 	</script>
 	
-	
+
+
 
 
 
