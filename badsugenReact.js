@@ -33,13 +33,13 @@ class InfoApp extends React.Component {
 	updateCurrentObj(objId){
 		let userName = localStorage.getItem('currentUserName');
 		let userURL = localStorage.getItem('currentUserURL');
-		console.log(userName, userURL);
+		//console.log(userName, userURL);
 		this.setState({
 			currentObjId: objId,
 			userName: userName,
 			userURL: userURL
 		});
-		console.log('update');
+		//console.log('update');
 		this.superfunction();
 	}
 	
@@ -144,7 +144,7 @@ class InfoApp extends React.Component {
 	superfunction(){
 		let name = '';
 		
-		console.log('super',this.state.currentObjId);
+		//console.log('super',this.state.currentObjId);
 		//let pressedID = localStorage.getItem('localPlaceID');
 		//console.log('pressedID', pressedID);
 		// Hämtar data från firebase
@@ -179,11 +179,11 @@ class InfoApp extends React.Component {
 			
 			//console.log(this.state.distanceArray);
 		}.bind(this));
-		this.openWeather();
+		//this.openWeather();
 		this.streetViewImg();
-		this.getAccumulateKey();
-		this.ApixuApi();
-        this.DarkskyWeatherApi();
+		//this.getAccumulateKey();
+		//this.ApixuApi();
+        //this.DarkskyWeatherApi();
 		//console.log('NOOOOO');
 	}
 	
