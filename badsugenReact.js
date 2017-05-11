@@ -26,20 +26,20 @@ class InfoApp extends React.Component {
 		this.ApixuApi = this.ApixuApi.bind(this);
 	}
 	componentDidMount() {
-		this.superfunction();
-		this.openWeather();
+		//this.superfunction();
+		
 	}
 	
 	updateCurrentObj(objId){
 		let userName = localStorage.getItem('currentUserName');
 		let userURL = localStorage.getItem('currentUserURL');
-		console.log(userName, userURL);
+		//console.log(userName, userURL);
 		this.setState({
 			currentObjId: objId,
 			userName: userName,
 			userURL: userURL
 		});
-		console.log('update');
+		//console.log('update');
 		this.superfunction();
 	}
 	
@@ -101,6 +101,7 @@ class InfoApp extends React.Component {
 	}
 	
 	ApixuApi() {
+		console.log('körs');
             let url1 = `http://api.apixu.com/v1/current.json?key=%20f064c533ae01465682e82338170905&q=${this.state.lat},${this.state.lng}`;
             
             let req1= new XMLHttpRequest();
@@ -148,7 +149,7 @@ class InfoApp extends React.Component {
 	superfunction(){
 		let name = '';
 		
-		console.log('super',this.state.currentObjId);
+		//console.log('super',this.state.currentObjId);
 		//let pressedID = localStorage.getItem('localPlaceID');
 		//console.log('pressedID', pressedID);
 		// Hämtar data från firebase
@@ -163,7 +164,7 @@ class InfoApp extends React.Component {
 				
 				if (allData[obj].id === this.state.currentObjId){ // Kontrollerar vilket objekt som klickats på
 					let object = allData[obj];
-					console.log(object);
+					//console.log(object);
 					let distanceKm = object.distance/1000;
 					let distanceRound = distanceKm.toFixed(1);
 					this.setState({
@@ -176,15 +177,19 @@ class InfoApp extends React.Component {
 							lng: object.lng
 						});
 					
-					this.streetViewImg();
-					this.getAccumulateKey();
-					this.ApixuApi();
-                    this.DarkskyWeatherApi();
+					
 				}
 			}
 			
+			
 			//console.log(this.state.distanceArray);
 		}.bind(this));
+		//this.openWeather();
+		this.streetViewImg();
+		//this.getAccumulateKey();
+		//this.ApixuApi();
+        //this.DarkskyWeatherApi();
+		//console.log('NOOOOO');
 	}
 	
 	render() {

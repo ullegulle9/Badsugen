@@ -49,7 +49,8 @@ class FormComponent extends React.Component {
 	  currentObjId: null,
 		commentList: [],
 		userName: '',
-		userURL: ''
+		userURL: '',
+		clickedID: null
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit .bind(this);
@@ -61,6 +62,8 @@ class FormComponent extends React.Component {
     this.handleRating5 = this.handleRating5.bind(this);
     this.resetStars = this.resetStars.bind(this);
 	  this.updateCurrentObj = this.updateCurrentObj.bind(this);
+	  this.clickList = this.clickList.bind(this);
+	  this.handleEdit = this.handleEdit.bind(this);
  }
   resetStars(){
      this.setState({
@@ -153,9 +156,11 @@ class FormComponent extends React.Component {
    // firebase.database().ref('comment').push({rating: this.state.rating, comment: this.state.comment});
    // var self = this;
    //console.log(this.state.rating)
+	 console.log('submit körs');
    let dataId;
    fb.ref('badplatser/').on('value', function (snapshot) {
      let data = snapshot.val();
+	   console.log('firebase handle submit');
      // Object.keys(data)
      for(let o in data){
        if(data[o].id === this.state.currentObjId){
@@ -163,23 +168,20 @@ class FormComponent extends React.Component {
          dataId = data[o].id;
        }
      }
-	   let time = new Date().toString();
+
+   }.bind(this))
+   let time = new Date().toString();
      fb.ref(`omdömen/${dataId}/rateComment/${time}`).set({
-		 rating: this.state.rating, 
+		 rating: this.state.rating,
 		 comment: this.state.comment,
 		 userName: this.state.userName,
 		 userURL: this.state.userURL,
 		 time: time
 	 });
-   }.bind(this))
-   /*
-   let list = []
-   this.setState({
-	   commentList: list
-   });*/
    this.showCommentsAndRating();
  }
 	showCommentsAndRating(){
+		console.log('showcomments kör');
 		let list = [];
 		this.setState({
 			commentList: list
@@ -188,7 +190,7 @@ class FormComponent extends React.Component {
 		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/`).on('value', snap => {
 			let data = snap.val();
 			for (let obj in data){
-				console.log(data[obj]);
+				//console.log(data[obj]);
 				let object = {
 					comment: data[obj].comment,
 					rating: data[obj].rating,
@@ -196,34 +198,90 @@ class FormComponent extends React.Component {
 					userURL: data[obj].userURL,
 					time: data[obj].time
 				};
-				
+
 				list.push(object);
-				
+
 			}
-			this.setState({
+
+		});
+		this.setState({
 					commentList: list
 				});
 				console.log(this.state.commentList);
-		});
 	}
 	updateCurrentObj(objId){
+		console.log('updatecurrentObj');
 		let userName = localStorage.getItem('currentUserName');
 		let userURL = localStorage.getItem('currentUserURL');
-		console.log(userName, userURL);
+		//console.log(userName, userURL);
 		this.setState({
 			currentObjId: objId,
 			userName: userName,
 			userURL: userURL
 		});
 		this.showCommentsAndRating();
+
 	}
+
+	clickList(ev){
+
+		let fb = firebase.database();
+
+		console.log(ev.target)
+
+		let commentId = ev.target.id;
+		//console.log(commentId);
+		this.setState({
+			clickedID: commentId
+		});
+		//console.log(this.state.clickedID);
+	/*	*/
+		this.showCommentsAndRating();
+	}
+
+
+	handleEdit(){
+		//console.log('click');
+		//console.log(this.state.clickedID);
+		let fb = firebase.database();
+		let obj;
+		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/${this.state.clickedID}`).on('value', snap => {
+			let data = snap.val();
+			//console.log(data);
+			obj = {
+					comment: this.state.comment,
+					rating: data.rating,
+					userName: data.userName,
+					userURL: data.userURL,
+					time: data.time
+			};
+			/*
+			for (let obj in data){
+				console.
+
+
+			} */
+		});
+
+		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/${this.state.clickedID}`).set(obj);
+
+		this.setState({
+			clickedID: null
+		});
+
+		this.showCommentsAndRating();
+	}
+
+
  render() {
    currentObj2 = this.updateCurrentObj;
 	 let elementList = this.state.commentList.map(el => {
-		 return <li>{el.comment}. Betyg: {el.rating} <br></br>
+		 return <li key={el.time} id={el.time} onClick={this.clickList} >{el.comment}. Betyg: {el.rating} <br></br>
 		 {el.userName}, postat {el.time} <img src={el.userURL}></img> </li>
 	 });
-   return (
+	 //console.log(this.state.clickedID);
+	 if (this.state.clickedID === null) {
+		 return (
      <div>
 		 <div>
 			 <h3>Ge ditt betyg på den har badplatsen!</h3>
@@ -232,15 +290,34 @@ class FormComponent extends React.Component {
 			 <span style={{color:this.state.color3}} onClick={this.handleRating3} className="fa fa-star" aria-hidden="true"></span>
 			 <span style={{color:this.state.color4}} onClick={this.handleRating4} className="fa fa-star" aria-hidden="true"></span>
 			 <span style={{color:this.state.color5}} onClick={this.handleRating5} className="fa fa-star" aria-hidden="true"></span>
-			 
+
 		 </div>
      <div>
-     <input value={this.state.comment} onChange={this.handleInput} type="text" placeholder="Comments" />
-     <button  onClick={this.handleSubmit}  type="button">Submit</button>
+     <input value={this.state.comment} onChange={this.handleInput} type="text" placeholder="Kommentarer..." />
+     <button  onClick={this.handleSubmit}  type="button">Skicka</button>
      </div>
 		   <ul>{elementList}</ul>
      </div>
+
+
    );
+	 } else {
+		 return <div>
+		 <div>
+			 <h3>Ge ditt betyg på den har badplatsen!</h3>
+			 <span style={{color:this.state.color1}} onClick={this.handleRating1} className="fa fa-star" aria-hidden="true"></span>
+			 <span style={{color:this.state.color2}} onClick={this.handleRating2} className="fa fa-star" aria-hidden="true"></span>
+			 <span style={{color:this.state.color3}} onClick={this.handleRating3} className="fa fa-star" aria-hidden="true"></span>
+			 <span style={{color:this.state.color4}} onClick={this.handleRating4} className="fa fa-star" aria-hidden="true"></span>
+			 <span style={{color:this.state.color5}} onClick={this.handleRating5} className="fa fa-star" aria-hidden="true"></span>
+		 </div>
+     <div>
+     <input value={this.state.comment} onChange={this.handleInput} type="text" placeholder="Ändra" />
+     <button  onClick={this.handleEdit}  type="button">Redigera kommentar</button>
+     </div>
+		   <ul>{elementList}</ul>
+     </div>
+	 }
  }
 }
 
