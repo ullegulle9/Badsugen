@@ -1,3 +1,4 @@
+/*
 div {
 	border-style: none
 }
@@ -31,7 +32,6 @@ button {
 }
 
 
-/*
   #map {
     width: 90%;
     margin: auto;
@@ -39,7 +39,6 @@ button {
     border-radius: 5px;    
     }
 
-*/
 #badplatsPage {
     width: 90%;
     margin: auto;
@@ -159,13 +158,271 @@ input {
 		max-width: 700px;
 	}
 }
+*/
 
-ul {
-	list-style: none;
-}
+
 #logoutButton{
 	display: none;
 	position: absolute;
 	top: 5vh;
 	right: 5vw;
+}
+
+div {
+    border-style: none
+}
+* {
+    outline: none;
+}
+
+
+
+
+
+body {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    color: #4B2E26;
+    background-image: url("https://i0.wp.com/blogg.kaprifolblogg.se/wp-content/uploads/2014/07/Rinkenas-4.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #cccccc;
+}
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 45px;
+}
+h2 {
+    text-align: center;
+}
+h3 {
+    text-align: center !important;
+}
+button {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+/*
+  #map {
+    width: 90%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;    
+    }
+*/
+#badplatsPage {
+    width: 90%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+      border-color: white;
+}
+#map {
+    height: 400px;
+    width: 80%;
+    margin: auto;
+}
+#mapSection {
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;  
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px; 
+    margin: auto;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    }
+#badplatsInfo {
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+#badplatsImg {
+    width: 90%;
+    border-radius: 5px;
+    margin: auto;
+}
+#locationInfo {}
+#locationIcon {
+    height: 25px;
+}
+span {
+    padding: 4px;
+}
+#rateName {
+    padding: 0;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+#weatherIcon {
+    height: 25px;
+}
+#starsPart {
+    margin: auto;
+    width: 170px;
+}
+#ratingPart {
+    margin: auto;
+    max-width: 500px;
+}
+#ratedPart {
+    margin: auto;
+    max-width: 500px;
+    text-align: left;
+    padding-bottom: 25px;
+}
+#starsPart2 {
+    margin-top: 10px;
+    margin: auto;
+    width: 120px;
+}
+#profilePic {
+    width: 80px;
+}
+input {
+    width: 220px;
+    padding: 20px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+#tableForm {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+#tabellBadplats {
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.5);
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    margin: auto;
+    width: 90%;
+}
+ul {
+    color: #4B2E26;
+    list-style: none;
+    margin: 50px;
+    padding: 0;
+	padding-bottom: 20px;
+    }
+li { 
+    margin-bottom: 50px;
+    padding: 10px;
+    border-radius: 5px;
+	text-align: left;
+	background-color: rgba(255, 255, 255, 0.65);
+}
+li img { 
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 5px;
+    border: solid #4B2E26 1px;
+    border-radius: 3px;  
+}
+td {
+    padding: 5px;
+}
+tr {
+    padding: 5px;
+}
+th {
+    padding: 5px;
+    }
+@media (max-width: 355px) {
+    #tabellBadplats {
+        font-size: 9pt;
+    } 
+}
+@media (min-width: 768px) {
+    #mapSection {
+        max-width: 700px;
+    }
+    #badplatsPage {
+        max-width: 700px;
+    }
+    #tabellBadplats {
+        max-width: 700px;
+    }
+    td {
+        padding: 15px;
+    }
+    tr {
+        padding: 15px;
+    }
+    th {
+        padding: 15px;
+    }
+}
+/* log in log out css */
+
+/*.loginBtn--facebook:before {
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png (1kB) ') 6px 6px no-repeat;
+}*/
+
+.loginBtn--facebook {
+  background-color: #3b5998 ;
+  color: white;    
+}
+.loginBtn {
+    border-width:0px;
+    font-size: 11pt;
+}
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+  background-color: #6c89c6 ;
+  cursor: pointer;    
+}
+.loginBtn--google {
+  background: #DD4B39 ;
+  color: white;
+}
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #ec705f ;
+  cursor: pointer;    
+}
+/* styling comments and weather */
+.NameComment {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15pt;
+    margin: 0;
+}
+.WrittenComment {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+    margin: 0;
+}
+.posted {
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    color: gray;
+}
+.rating {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+.changeComment { 
+     float: right;
+}
+.weatherApis{
+    text-align: center;
+}
+.weatherRow {
+    display: inline-block;
+    margin: 5px;
+    border: 1px solid #B78356;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+tr:hover {
+    cursor: pointer;
+    background-color: white;
 }
