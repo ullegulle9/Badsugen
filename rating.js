@@ -157,20 +157,11 @@ class FormComponent extends React.Component {
    // var self = this;
    //console.log(this.state.rating)
 	 console.log('submit körs');
-   let dataId;
-   fb.ref('badplatser/').on('value', function (snapshot) {
-     let data = snapshot.val();
-	   console.log('firebase handle submit');
-     // Object.keys(data)
-     for(let o in data){
-       if(data[o].id === this.state.currentObjId){
-         console.log(data[o].id);
-         dataId = data[o].id;
-       }
-     }
 
-   }.bind(this))
-   let time = new Date().toString();
+   let dataId = this.state.currentObjId;
+   
+   let time = new Date().toLocaleString();
+
      fb.ref(`omdömen/${dataId}/rateComment/${time}`).set({
 		 rating: this.state.rating,
 		 comment: this.state.comment,
@@ -178,8 +169,14 @@ class FormComponent extends React.Component {
 		 userURL: this.state.userURL,
 		 time: time
 	 });
+	 this.setState({
+		 comment: '',
+		 rating: 0
+	 });
    this.showCommentsAndRating();
  }
+	
+	
 	showCommentsAndRating(){
 		console.log('showcomments kör');
 		let list = [];
@@ -190,7 +187,7 @@ class FormComponent extends React.Component {
 		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/`).on('value', snap => {
 			let data = snap.val();
 			for (let obj in data){
-				//console.log(data[obj]);
+				console.log(data[obj]);
 				let object = {
 					comment: data[obj].comment,
 					rating: data[obj].rating,
@@ -201,13 +198,13 @@ class FormComponent extends React.Component {
 
 				list.push(object);
 
+				this.setState({
+					commentList: list
+				});
+
 			}
 
 		});
-		this.setState({
-					commentList: list
-				});
-				console.log(this.state.commentList);
 	}
 	updateCurrentObj(objId){
 		console.log('updatecurrentObj');
