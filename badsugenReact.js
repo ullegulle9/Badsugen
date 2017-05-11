@@ -102,7 +102,7 @@ class InfoApp extends React.Component {
 	
 	ApixuApi() {
 		console.log('körs');
-            let url1 = `http://api.apixu.com/v1/current.json?key=%20f064c533ae01465682e82338170905&q=${this.state.lat},${this.state.lng}`;
+            let url1 = `http://api.apixu.com/v1/current.json?key=670e240b3e15413496a82430171105&q=${this.state.lat},${this.state.lng}`;
             
             let req1= new XMLHttpRequest();
             req1.onreadystatechange=() => {
