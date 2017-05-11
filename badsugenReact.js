@@ -16,7 +16,8 @@ class InfoApp extends React.Component {
 			userURL: '',
 			owWind: null,
              owTemp: null,
-             owIcon: null
+             owIcon: null,
+			temperatureCarl: "Ingen väderlek idag"
 		};
 		this.streetViewImg = this.streetViewImg.bind(this);
 		this.showWeather = this.showWeather.bind(this);
@@ -83,8 +84,17 @@ class InfoApp extends React.Component {
     }
 	
 	openWeather(){
+		let long, latt;
+		 if(!this.state.lng) {
+			 long = 0;
+			 latt = 0;
+		 } else {
+			console.log("OpenWaterComponent" , this.state.lng)
+			long = this.state.lng.toFixed(4);
+			latt = this.state.lat.toFixed(4);
+		 }
 		console.log('openWe');
-		return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.state.lat},${this.state.lng}&APPID=2d3055ddb7941ccc16f48f3aaeb29121&units=metric`)
+		return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${latt},${long}&APPID=2d3055ddb7941ccc16f48f3aaeb29121&units=metric`)
          .then(function(res){
            return res.json();
          }) //chain
@@ -101,8 +111,18 @@ class InfoApp extends React.Component {
 	}
 	
 	ApixuApi() {
+		let long, latt;
+		 if(!this.state.lng) {
+			 long = 0;
+			 latt = 0;
+		 } else {
+			console.log("ApixuApiComponent " , this.state.lng)
+			long = this.state.lng.toFixed(4);
+			latt = this.state.lat.toFixed(4);
+		 }
 		console.log('körs');
-            let url1 = `http://api.apixu.com/v1/current.json?key=%20f064c533ae01465682e82338170905&q=${this.state.lat},${this.state.lng}`;
+			let url1 = `http://api.apixu.com/v1/current.json?key=670e240b3e15413496a82430171105&q=${latt},${long}`;
+			
             
             let req1= new XMLHttpRequest();
             req1.onreadystatechange=() => {
@@ -133,8 +153,8 @@ class InfoApp extends React.Component {
 			 latt = 0;
 		 } else {
 			console.log("Carls!!!" , this.state.lng)
-			let long = this.state.lng.toFixed(4);
-			let latt = this.state.lat.toFixed(4);
+			long = this.state.lng.toFixed(4);
+			latt = this.state.lat.toFixed(4);
 		 }
 		console.log(long)
 		let self = this;
@@ -145,7 +165,7 @@ class InfoApp extends React.Component {
 		.then(function(data){
 			let temp = data.timeSeries[0].parameters[1].values[0] 
 			return self.setState({
-				temperature: temp.toFixed(1) + '°c'
+				temperatureCarl: temp.toFixed(1) + '°c'
 			});
 		}).catch(function(error){
 			console.log('DarkSky ',error)
@@ -189,17 +209,17 @@ class InfoApp extends React.Component {
 			console.log('superfunction after for', newstate)
 			if( newstate != null )
 				this.setState(newstate);
-			
+				this.DarkskyWeatherApi();
+				this.openWeather();
+				this.ApixuApi();
 			
 			//console.log(this.state.distanceArray);
 		}.bind(this));
 		
 		console.log('lat:', this.state.lat)
-		this.DarkskyWeatherApi();
-		//this.openWeather();
+		
 		this.streetViewImg();
 		//this.getAccumulateKey();
-		//this.ApixuApi();
 		//console.log('NOOOOO');
 	}
 	
