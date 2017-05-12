@@ -426,3 +426,29 @@ tr:hover {
     cursor: pointer;
     background-color: white;
 }
+
+i {
+	cursor: pointer;
+}
+
+a {
+    color: #4B2E26 ;
+    text-decoration: none;
+       font-family: 'Pacifico', cursive;
+    font-size: 45px;
+}
+
+a:hover {
+        color: #4B2E26 ;
+    text-decoration: none;
+}
+
+a:visited {
+       color: #4B2E26 ;
+    text-decoration: none; 
+}
+
+a:active {
+        color: #4B2E26 ;
+    text-decoration: none;
+}

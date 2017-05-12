@@ -1,39 +1,4 @@
-/*
-class Weather extends React.Component{
-  constructor() {
-    super();
-    this.state = {
-      windSpeed: '',
-      temperature: 0,
-      icon: ''
-    }
-  }
-    componentDidMount(){
-      return fetch(`http://api.openweathermap.org/data/2.5/weather?q=Gothenbueg&APPID=2d3055ddb7941ccc16f48f3aaeb29121&units=metric`)
-         .then(function(res){
-           return res.json();
-         }) //chain
-         .then(function(data){
-           var iconUrl = "http://openweathermap.org/img/w/" + data.weather[0].icon+ ".png";
-           let vind = data.wind.speed + "m/s";
-           let temp = data.main.temp + "°C";
-           return this.setState({
-             windSpeed: vind,
-             temperature:temp,
-             icon: iconUrl
-           }) ;
-         }.bind(this));
-    }
-    render(){
-      return (
-        <div style={{marginTop:'2%'}}>
-        <img src={this.state.icon}/>
-        <span>windSpeed:{this.state.windSpeed}, temperature: {this.state.temperature}</span>
-        </div>
-      )
-    }
-}*/
-let currentUserPicture = localStorage.getItem("currentUserPicture")
+
 
 class FormComponent extends React.Component {
   constructor() {
@@ -223,17 +188,17 @@ class FormComponent extends React.Component {
 
 	clickList(ev){
 
-		let fb = firebase.database();
+		
 
-		console.log(ev.target)
+		//console.log(ev.target.parentElement);
 
-		let commentId = ev.target.id;
+		let commentId = ev.target.parentElement.id;
 		//console.log(commentId);
 		this.setState({
 			clickedID: commentId
 		});
 		//console.log(this.state.clickedID);
-	/*	*/
+		
 		this.showCommentsAndRating();
 	}
 
@@ -264,7 +229,9 @@ class FormComponent extends React.Component {
 		fb.ref(`omdömen/${this.state.currentObjId}/rateComment/${this.state.clickedID}`).set(obj);
 
 		this.setState({
-			clickedID: null
+			clickedID: null,
+			comment: '',
+			rating: 0
 		});
 
 		this.showCommentsAndRating();
